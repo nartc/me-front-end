@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ClientService } from '../../services/client.service';
+import { MenuItem, ConfirmationService } from 'primeng/primeng';
+
+import { Client } from '../../models/client';
 
 @Component({
   selector: 'app-client-detail',
@@ -6,10 +11,58 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-detail.component.scss']
 })
 export class ClientDetailComponent implements OnInit {
+  
+  public buttonItems: Array<MenuItem> = [];
 
-  constructor() { }
+  public id: string;
+  public client: Client;
+  public hasBalance: boolean = false;
+
+  constructor(
+    public router: Router,
+    public aRoute: ActivatedRoute,
+    public clientService: ClientService
+  ) { }
 
   ngOnInit() {
+    //Get ID
+    this.id = this.aRoute.snapshot.params['id'];
+    console.log(this.id);
+    
+    //Get Client by Id
+    this.clientService.getClientById(this.id).subscribe(
+      (data: any): void => {
+        if(data.client.balance > 0) {
+          this.hasBalance = true;
+        } else {
+          this.hasBalance = false;
+        }
+        this.client = data.client;
+      }
+    );
+
+    //Context Menu
+    this.buttonItems = [
+      {
+        label: 'Edit',
+        icon: 'fa-wrench',
+        command: () => {
+          this.router.navigate(['/edit-client/'+this.id]);
+        }
+      },
+      {
+        label: 'Delete',
+        icon: 'fa-close',
+        command: () => {
+          //TODO Delete Client
+        }
+      }
+    ];
+
+  }
+
+  onClick() {
+    this.router.navigate(['/clients']);
   }
 
 }

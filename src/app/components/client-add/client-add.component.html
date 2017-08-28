@@ -1,3 +1,243 @@
-<p>
-  client-add works!
-</p>
+<div class="ui-g">
+  <div class="ui-g-6">
+    <button 
+      pButton 
+      type="button" 
+      class="ui-button-info" 
+      label="Back To Clients" 
+      icon="fa-arrow-circle-o-left" 
+      iconPos="left" 
+      (click)="onClick()"
+    >
+    </button>
+  </div>
+  <div class="ui-g-6">
+    <!--TODO-->
+  </div>
+</div>
+
+<p-growl [value]="addClientMessages" styleClass="addClientGrowl"></p-growl>
+<form
+  [formGroup]="addClientForm"
+  (ngSubmit)="onAddClientSubmit(addClientForm.value)"
+>
+  <p-panel header="Add Client">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+
+      <!--EMAIL Input-->
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Email *:
+        </div>
+        <div class="ui-grid-col-6">
+          <input
+            pInputText 
+            type="email"
+            formControlName="email"
+            placeholder="Required"
+          >
+        </div>
+        <div class="ui-grid-col-4">
+          <div 
+            class="ui-messages ui-messages-error ui-corner-all animated bounceInLeft"
+            *ngIf="!addClientForm.controls['email'].valid && addClientForm.controls['email'].dirty"
+          >
+            <i class="fa fa-close"></i>
+            <span *ngIf="addClientForm.controls['email'].errors['required']">This field is required</span>
+            <span *ngIf="addClientForm.controls['email'].errors['pattern']">Must enter a valid email</span>
+          </div>
+        </div>
+      </div>
+      <!--PASSWORD Input-->
+      <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Password *:
+          </div>
+          <div class="ui-grid-col-6">
+            <input
+              pInputText 
+              type="password"
+              formControlName="password"
+              placeholder="Required"
+            >
+          </div>
+          <div class="ui-grid-col-4">
+            <div 
+              class="ui-messages ui-messages-error ui-corner-all animated bounceInLeft"
+              *ngIf="!addClientForm.controls['password'].valid && addClientForm.controls['password'].dirty"
+            >
+              <i class="fa fa-close"></i>
+              <span *ngIf="addClientForm.controls['password'].errors['required']">This field is required</span>
+              <span *ngIf="addClientForm.controls['password'].errors['minlength']">Must be at least 6 characters</span>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <!--FIRSTNAME Input-->
+      <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            First Name:
+          </div>
+          <div class="ui-grid-col-6">
+            <input
+              pInputText 
+              type="text"
+              formControlName="firstName"
+            >
+          </div>
+          <div class="ui-grid-col-4">
+          </div>
+        </div>
+        <!--LASTNAME Input-->
+      <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Last Name:
+          </div>
+          <div class="ui-grid-col-6">
+            <input
+              pInputText 
+              type="text"
+              formControlName="lastName"
+            >
+          </div>
+          <div class="ui-grid-col-4">
+          </div>
+        </div>
+        <!--STREET Input-->
+      <div class="ui-grid-row" formGroupName="contact">
+          <div class="ui-grid-col-2">
+            Street:
+          </div>
+          <div class="ui-grid-col-6" formGroupName="address">
+            <input
+              pInputText 
+              type="text"
+              formControlName="street"
+            >
+          </div>
+          <div class="ui-grid-col-4">
+          </div>
+        </div>
+        <!--STREET2 Input-->
+      <div class="ui-grid-row" formGroupName="contact">
+          <div class="ui-grid-col-2">
+            Street 2 (<span style="font-style: italic;">Apt, Suite, ...</span>):
+          </div>
+          <div class="ui-grid-col-6" formGroupName="address">
+            <input
+              pInputText 
+              type="text"
+              formControlName="street2"
+            >
+          </div>
+          <div class="ui-grid-col-4">
+          </div>
+        </div>
+        <!--CITY Input-->
+      <div class="ui-grid-row" formGroupName="contact">
+          <div class="ui-grid-col-2">
+            City:
+          </div>
+          <div class="ui-grid-col-6" formGroupName="address">
+            <input
+              pInputText 
+              type="text"
+              formControlName="city"
+            >
+          </div>
+          <div class="ui-grid-col-4">
+          </div>
+        </div>
+        <!--STATE Input-->
+      <div class="ui-grid-row" formGroupName="contact">
+          <div class="ui-grid-col-2">
+            State:
+          </div>
+          <div class="ui-grid-col-6" formGroupName="address">
+            <p-dropdown
+              [options]="states"
+              formControlName="state"
+              placeholder="Select a state"
+              filter="filter"
+              [style]="{'width':'35%'}"
+            >
+            </p-dropdown>
+          </div>
+          <div class="ui-grid-col-4">
+          </div>
+        </div>
+        <!--ZIP Input-->
+      <div class="ui-grid-row" formGroupName="contact">
+          <div class="ui-grid-col-2">
+            Zipcode:
+          </div>
+          <div class="ui-grid-col-6" formGroupName="address">
+            <p-inputMask
+              type="text"
+              formControlName="zip"
+              placeholder="99999"
+              mask="99999"
+            >
+            </p-inputMask>
+          </div>
+          <div class="ui-grid-col-4">
+            <div 
+              class="ui-messages ui-messages-error ui-corner-all animated bounceInLeft"
+              *ngIf="!addClientForm.controls.contact.controls.address.controls['zip'].valid &&
+                      addClientForm.controls.contact.controls.address.controls['zip'].dirty" 
+            >
+              <i class="fa fa-close"></i>
+              <span *ngIf="addClientForm.controls.contact.controls.address.controls['zip'].errors['required']">Must enter a valid zipcode</span>
+            </div>
+          </div>
+        </div>
+        <!--PHONE Input-->
+      <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Phone:
+          </div>
+          <div class="ui-grid-col-6" formGroupName="contact">
+            <p-inputMask
+              type="text"
+              formControlName="phone"
+              placeholder="999-999-9999"
+              mask="999-999-9999"
+            >
+            </p-inputMask>
+          </div>
+          <div class="ui-grid-col-4">
+            <div 
+              class="ui-messages ui-messages-error ui-corner-all animated bounceInLeft"
+              *ngIf="!addClientForm.controls.contact.controls['phone'].valid && addClientForm.controls.contact.controls['phone'].dirty"
+            >
+              <i class="fa fa-close"></i>
+              <span *ngIf="addClientForm.controls.contact.controls['phone'].errors['pattern']">Must enter a valid phone number</span>
+            </div>
+          </div>
+        </div>
+        <!--BALANCE Input-->
+      <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Balance:
+          </div>
+          <div class="ui-grid-col-6">
+            <input
+              pInputText 
+              type="number"
+              formControlName="balance"
+            >
+          </div>
+          <div class="ui-grid-col-4">
+          </div>
+      </div>
+      <!--SUBMIT Button-->
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"></div>
+        <div class="ui-grid-col-6">
+          <button pButton type="submit" label="Submit" [disabled]="!addClientForm.valid"></button>
+        </div>
+      </div>
+    </div><!--UI Grid ends-->
+  </p-panel>
+
+</form>

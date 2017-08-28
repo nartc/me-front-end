@@ -1,3 +1,53 @@
-<p>
-  clients works!
-</p>
+<!--Confirmation Dialog -->
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle"></p-confirmDialog>
+
+<div class="ui-g">
+  <!--MAIN Clients-->
+  <div class="ui-g-10 ui-sm-12">
+    <div class="ui-g-6">
+      <h2><i class="fa fa-users"></i> Clients</h2>
+    </div>
+    <div class="ui-g-6">
+      <h5 class="pull-right text-muted">Total Revenue: {{totalRevenue | currency:'USD':true}}</h5>
+    </div>
+    <!--Clients DATA-->
+    <div class="ui-g-12">
+      <p-dataTable
+        [value]="clients"
+        [responsive]="true"
+        selectionMode="single" 
+        [(selection)]="selectedClient" 
+        (onRowSelect)="onRowSelect($event)"
+        styleClass="clientsTable"
+      >
+        <p-column field="_id" header="ID" [style]="{'width':'25%'}"></p-column>
+        <p-column field="firstName" header="First Name" [style]="{'width':'21%'}"></p-column>
+        <p-column field="lastName" header="Last Name" [style]="{'width':'21%'}"></p-column>
+        <p-column field="email" header="Email" [style]="{'width':'21%'}"></p-column>
+        <p-column header="Balance" [style]="{'width':'12%'}">
+          <ng-template let-col let-client="rowData" pTemplate="body">
+            <span>{{client.balance | currency:'USD':true}}</span>
+          </ng-template>
+        </p-column>
+        <p-footer *ngIf="clients">
+          Total clients: {{clients.length}} 
+        </p-footer>
+      </p-dataTable>
+    </div> <!--Clients DATA Ends-->
+  </div>
+  <!--Clients Sidebar-->
+  <div class="ui-g-2 ui-sm-12">
+    <button 
+      pButton 
+      type="button" 
+      class="ui-button-success" 
+      icon="fa-plus" 
+      iconPos="left" 
+      label="Add Client" 
+      (click)="onAddClientClick()" 
+      id="addClientButton"
+    >
+    </button>
+  </div>
+  
+</div>

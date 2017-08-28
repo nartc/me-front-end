@@ -69,7 +69,7 @@ export class ClientService {
   }
 
   getClientById(id: string): Observable<any>{
-    return this.httpService.get('/clients/'+id, {});
+    return this.httpService.get('/clients/client/'+id, {});
   }
 
   updateClient(id: string, client: Client): Observable<any>{

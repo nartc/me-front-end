@@ -16,9 +16,12 @@
         <li class="nav-item"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/']">Home</a>
         </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn()"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" style="cursor: pointer" (click)="onDashboardClick()">Dashboard</a>
-          </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.currentAdmin"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" style="cursor: pointer" [routerLink]="['/dashboard/',authService.currentAdmin?.role, authService.currentAdmin?._id]">Dashboard</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn() && clientService.currentClient" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" style="cursor: pointer" [routerLink]="['/dashboard/',clientService.currentClient?.role, clientService.currentClient?._id]">Dashboard</a>
+        </li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="!authService.isLoggedIn()"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
@@ -31,8 +34,8 @@
           <a class="nav-link" id="welcomeText" style="cursor: pointer">Welcome, {{authService.currentAdmin?.name}}</a>
         </li>
         <li class="nav-item" *ngIf="clientService.currentClient">
-            <a class="nav-link" id="welcomeText" style="cursor: pointer">Welcome, {{clientService.currentClient?.firstName}}</a>
-          </li>
+          <a class="nav-link" id="welcomeText" style="cursor: pointer">Welcome, {{clientService.currentClient?.firstName}}</a>
+        </li>
         <!-- <li *ngIf="authService.isLoggedIn()" class="nav-item">
           <a class="nav-link" id="welcomeText" (click)="onLogoutClick()" style="cursor: pointer">Logout</a>
         </li> -->

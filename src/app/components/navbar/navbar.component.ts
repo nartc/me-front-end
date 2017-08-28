@@ -93,13 +93,4 @@ export class NavbarComponent implements OnInit {
     console.log(this.client);
   }
 
-  onDashboardClick() {
-    if(this.clientService.currentClient) {
-      this.router.navigate(['/dashboard/'+this.clientService.currentClient.role+'/'+this.clientService.currentClient._id]);
-    }
-    if(this.authService.currentAdmin) {
-      this.router.navigate(['/dashboard/'+this.authService.currentAdmin.role+'/'+this.authService.currentAdmin._id]);
-    }
-  }
-
 }

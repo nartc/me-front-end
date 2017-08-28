@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   
   public admin: Admin;
   public client: Client;
-  public totalRevenue: number;
+
 
   public todayDate: Date;
 
@@ -37,7 +37,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     //Get Date
     this.todayDate = new Date();
-    console.log(this.todayDate);
 
     //Get Role
     this.role = this.aRoute.snapshot.params['role'];
@@ -57,10 +56,7 @@ export class DashboardComponent implements OnInit {
       //Get Clients
       this.clientService.getClients().subscribe(
         (data: any): void => {
-          console.log("Data coming back from clientService.getClients():...");
-          console.log(data);
           this.clients = data.clients;
-          this.getTotal();
         }
       );
 
@@ -82,15 +78,6 @@ export class DashboardComponent implements OnInit {
         }
       );
     }
-  }
-
-  getTotal() {
-    let total: number = 0;
-    for(let i = 0; i < this.clients.length; i++) {
-      total += this.clients[i].balance;
-    }
-
-    this.totalRevenue = total;
   }
 
 }

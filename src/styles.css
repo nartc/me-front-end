@@ -11,7 +11,8 @@ body{
     text-align: center;
 }
 
-.loginGrowl.ui-growl {
+.loginGrowl.ui-growl,
+.addClientGrowl.ui-growl {
     position: relative;
     width: 100%;
     top: 0;
@@ -37,9 +38,30 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 #viewClientsButton.ui-button,
 #viewProductsButton.ui-button,
 #viewOrdersButton.ui-button,
-#viewVendorOrdersButton.ui-button{
+#viewVendorOrdersButton.ui-button,
+#addClientButton.ui-button{
     display: block;
     width: 90%;
     margin: auto;
     margin-bottom: 10px;
+}
+
+.dashboardPanels .ui-widget-header a{
+    color: white;
+    background: #5cb85c;
+}
+
+.clientsTable .ui-state-default{
+    background: #67b021;
+}
+
+.clientDetailSplitBtnMenu.ui-menu{
+    width: 7.75em;
+    left: 0 !important;
+}
+
+.clientDetailPanel .ui-panel-footer {
+    background: #ece8da;
+    border: 1px solid #d4ccb0;
+    border-radius: 2px;
 }

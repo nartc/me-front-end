@@ -1,0 +1,11 @@
+::ng-deep .ui-messages {
+    display: block;
+    margin: 0;
+    padding: 3px;
+}
+
+input.ui-inputtext.ng-dirty.ng-invalid {
+    border-bottom-color: transparent;
+    border-color: red;
+    box-shadow: -1px 0px 20px 0px rgba(159, 60, 50, 0.1);
+}
