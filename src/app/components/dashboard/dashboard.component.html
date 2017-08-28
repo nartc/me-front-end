@@ -1,0 +1,38 @@
+<p *ngIf="role == 'Client'">
+  Client dashboard works!
+</p>
+<div *ngIf="role == 'Admin'">
+  <div class="ui-g">
+    <!--Main Dashboard-->
+    <div class="ui-g-10 ui-sm-12 ui-g-nopad">
+        <div class="ui-g-6">
+          <h2><i class="fa fa-dashcube"></i> Dashboard</h2>
+        </div>
+        <div class="ui-g-6">
+          <h5 class="pull-right text-muted">Today: {{todayDate | date:'short'}}</h5>
+        </div>
+        <hr>
+        <!--Stats Panel-->
+        <div class="ui-g-12 ui-g-nopad">
+          <p-panel header="Statistics">
+              <p-panel header="Clients" *ngIf="clients">
+                Total clients: {{clients.length}}
+              </p-panel>
+              <p-panel header="Products">
+                Total products: <!--TODO-->
+              </p-panel>
+              <p-panel header="Orders">
+                Total orders: <!--TODO-->
+              </p-panel>
+              <p-panel header="Vendor Orders">
+                Total vendor orders: <!--TODO-->
+              </p-panel>
+          </p-panel>
+        </div>
+    </div>
+    <!--Sidebar-->
+    <div class="ui-g-2 ui-sm-12">
+      <app-sidebar></app-sidebar>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+.loginPanel .ui-panel-titlebar {
+    text-align: center;
+}
+
+.loginGrowl.ui-growl {
+    position: relative;
+    width: 100%;
+    top: 0;
+    right: 0;
+}
+
+#loginButton.ui-button{
+    width: 50%;
+    margin-left: 25%;
+}
+
+.alert p {
+    margin-bottom: 0;
+    padding: 0;
+}
+
+p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
+    border-bottom-color: transparent;
+    border-color: red;
+    box-shadow: -1px 0px 20px 0px rgba(159, 60, 50, 0.1);
+}
+
+#viewClientsButton.ui-button,
+#viewProductsButton.ui-button,
+#viewOrdersButton.ui-button,
+#viewVendorOrdersButton.ui-button{
+    display: block;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 10px;
+}

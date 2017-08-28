@@ -1,0 +1,21 @@
+$nav-bg: #343a40;
+$primary-color: #67b021;
+
+.navbar{
+    opacity: 0.8;
+    border-bottom: 2px solid $primary-color;
+}
+
+.navbar-dark .navbar-brand{
+    color: $primary-color;
+}
+
+.navbar-dark .navbar-toggler{
+    color: $primary-color;
+    border-color: $primary-color;
+    cursor: pointer;
+}
+
+.navbar-dark .navbar-nav .active > .nav-link {
+    color: $primary-color;
+}

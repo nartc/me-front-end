@@ -1,0 +1,46 @@
+<p-menu #menu popup="popup" [model]="menuItems" styleClass="navMenu"></p-menu>
+
+<!--Confirmation Dialog -->
+<p-confirmDialog header="Confirmation" key="navConfirm" icon="fa fa-question-circle"></p-confirmDialog>
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">eCommerce.</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/']">Home</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn()"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" style="cursor: pointer" (click)="onDashboardClick()">Dashboard</a>
+          </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" *ngIf="!authService.isLoggedIn()"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/login']">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!authService.isLoggedIn()"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/register']">Register</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.currentAdmin">
+          <a class="nav-link" id="welcomeText" style="cursor: pointer">Welcome, {{authService.currentAdmin?.name}}</a>
+        </li>
+        <li class="nav-item" *ngIf="clientService.currentClient">
+            <a class="nav-link" id="welcomeText" style="cursor: pointer">Welcome, {{clientService.currentClient?.firstName}}</a>
+          </li>
+        <!-- <li *ngIf="authService.isLoggedIn()" class="nav-item">
+          <a class="nav-link" id="welcomeText" (click)="onLogoutClick()" style="cursor: pointer">Logout</a>
+        </li> -->
+        <li  class="nav-item" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" (click)="menu.toggle($event)" style="cursor: pointer"><i class="fa fa-user-circle-o"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br><br>
