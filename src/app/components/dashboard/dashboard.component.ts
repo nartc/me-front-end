@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ClientService } from '../../services/client.service';
+import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { HttpService } from '../../services/http.service';
 
 import { Client } from '../../models/client';
+import { Product } from '../../models/product';
 import { Admin } from '../../models/admin';
 
 @Component({
@@ -22,6 +24,7 @@ export class DashboardComponent implements OnInit {
   public todayDate: Date;
 
   public clients: Array<Client>;
+  public products: Array<Product>;
 
   public role: String = '';
 
@@ -30,6 +33,7 @@ export class DashboardComponent implements OnInit {
     public aRoute: ActivatedRoute,
     public authService: AuthService,
     public clientService: ClientService,
+    public productService: ProductService,
     public orderService: OrderService,
     public httpService: HttpService
   ) { }
@@ -65,6 +69,11 @@ export class DashboardComponent implements OnInit {
       //Get Vendor Orders
 
       //Get Products
+      this.productService.getProducts().subscribe(
+        (data: any): void => {
+          this.products = data.products;
+        }
+      );
 
 
     } else if(this.role == 'Client') {

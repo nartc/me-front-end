@@ -144,7 +144,7 @@ export class ClientEditComponent implements OnInit {
               this.router.navigate(['/client-detail/'+this.id]);
             } else {
               this.flashMessagesService.show(
-                'Client Info Updated Failed',
+                'Client Info Update Failed',
                 {
                   cssClass: 'ui-messages-danger',
                   timeout: 3000

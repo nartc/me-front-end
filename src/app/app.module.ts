@@ -6,10 +6,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { FileValueAccessor } from './components/product-add/productAdd.directive';
 
 //PrimeNG
 import { FileUploadModule, 
          InputTextModule,
+         InputTextareaModule,
          InputMaskModule,
          PanelModule,
          ButtonModule,
@@ -20,7 +22,8 @@ import { FileUploadModule,
          SharedModule,
          ConfirmDialogModule, ConfirmationService,
          SplitButtonModule,
-         DropdownModule
+         DropdownModule,
+         RadioButtonModule
        } from 'primeng/primeng';
        
 //Services
@@ -101,7 +104,8 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     HomeComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    FileValueAccessor
   ],
   imports: [
     BrowserModule,
@@ -113,6 +117,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FileUploadModule, 
     InputTextModule,
+    InputTextareaModule,
     InputMaskModule,
     PanelModule,
     ButtonModule,
@@ -123,7 +128,8 @@ const appRoutes: Routes = [
     SharedModule,
     ConfirmDialogModule,
     SplitButtonModule,
-    DropdownModule
+    DropdownModule,
+    RadioButtonModule
   ],
   providers: [
     ConfirmationService,

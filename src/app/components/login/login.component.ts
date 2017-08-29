@@ -3,7 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { ClientService } from '../../services/client.service';
-import { Message, SelectItem } from 'primeng/primeng';
+import { Message } from 'primeng/primeng';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
@@ -15,12 +15,9 @@ export class LoginComponent implements OnInit {
 
   public email: string = '';
   public password: string = '';
-  public role: string = '';
+  public role: string = 'Client';
 
-  public loginAsOptions: Array<SelectItem> = [];
   public loginMessages: Array<Message> = [];
-
-  public disableSubmitButton: boolean = true;
 
   constructor(
     public router: Router,
@@ -31,9 +28,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loginAsOptions = [];
-    this.loginAsOptions.push({label: 'Admin', value: 'Admin'});
-    this.loginAsOptions.push({label: 'Client', value: 'Client'});
   }
 
   onLoginSubmit(): void{
@@ -100,12 +94,14 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onChange(event) {
-    if(event.value) {
-      this.disableSubmitButton = false;
-    } else {
-      this.disableSubmitButton = true;
-    }
+  onClientClick(event) {
+    this.role = 'Client';
+    console.log(this.role);
+  }
+
+  onAdminClick(event) {
+    this.role = 'Admin';
+    console.log(this.role);
   }
 
 }

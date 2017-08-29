@@ -11,8 +11,5 @@ export interface Detail{
     name?: string,
     description?: string,
     unit?: string,
-    image?: {
-        data: Buffer,
-        contentType: string
-    }
+    image?: any
 }

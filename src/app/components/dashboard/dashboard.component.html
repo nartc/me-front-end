@@ -15,18 +15,28 @@
         <!--Stats Panel-->
         <div class="ui-g-12 ui-g-nopad">
           <p-panel header="Statistics">
-              <p-panel header="Clients" *ngIf="clients" [toggleable]="true" styleClass="dashboardPanels">
-                Total clients: {{clients.length}}
-              </p-panel>
-              <p-panel header="Products" [toggleable]="true" styleClass="dashboardPanels">
-                Total products: <!--TODO-->
-              </p-panel>
-              <p-panel header="Orders" [toggleable]="true" styleClass="dashboardPanels">
-                Total orders: <!--TODO-->
-              </p-panel>
-              <p-panel header="Vendor Orders" [toggleable]="true" styleClass="dashboardPanels">
-                Total vendor orders: <!--TODO-->
-              </p-panel>
+            <div class="ui-g">
+              <div class="ui-g-6">
+                <p-panel header="Clients" *ngIf="clients" [toggleable]="true" styleClass="dashboardPanels">
+                  Total clients: {{clients.length}}
+                </p-panel>
+              </div>
+              <div class="ui-g-6">
+                <p-panel header="Products" *ngIf="products" [toggleable]="true" styleClass="dashboardPanels">
+                  Total products: {{products.length}}
+                </p-panel>
+              </div>
+              <div class="ui-g-6">
+                <p-panel header="Orders" [toggleable]="true" styleClass="dashboardPanels">
+                  Total orders: <!--TODO-->
+                </p-panel>
+              </div>
+              <div class="ui-g-6">
+                <p-panel header="Vendor Orders" [toggleable]="true" styleClass="dashboardPanels">
+                  Total vendor orders: <!--TODO-->
+                </p-panel>
+              </div>
+            </div>
           </p-panel>
         </div>
     </div>

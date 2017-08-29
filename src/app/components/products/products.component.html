@@ -10,7 +10,37 @@
     <div class="ui-g-6">
       <!--TODO-->
     </div>
+    <!--PRODUCTS Data-->
+    <div class="ui-g-12">
+      <p-dataTable
+        [value]="products"
+        [responsive]="true"
+        selectionMode="single" 
+        [(selection)]="selectedProduct" 
+        (onRowSelect)="onRowSelect($event)"
+        styleClass="productsTable"
+      >
+        <p-column field="productNumber" header="ID" [style]="{'width':'15%'}"></p-column>
+        <p-column field="productDetails.name" header="Name" [style]="{'width':'35%'}"></p-column>
+        <p-column field="productDetails.unit" header="Unit" [style]="{'width':'13%'}"></p-column>
+        <p-column header="Unit Price" [style]="{'width':'12%'}">
+          <ng-template let-col let-product="rowData" pTemplate="body">
+            <span>{{product.productSellPrice | currency:'USD':true}}</span>
+          </ng-template>
+        </p-column>
+        <p-column header="Vendor Price" [style]="{'width':'12%'}">
+          <ng-template let-col let-product="rowData" pTemplate="body">
+            <span>{{product.productBuyPrice | currency:'USD':true}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="inStock" header="Quantity" [style]="{'width':'13%'}"></p-column>
+        <p-footer *ngIf="products">
+          Total products: {{products.length}} 
+        </p-footer>
+      </p-dataTable>
+    </div> <!--Ends Products Data-->
   </div>
+  <!--PRODUCT Sidebar-->
   <div class="ui-g-2 ui-sm-12">
     <button 
       pButton 

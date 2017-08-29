@@ -31,17 +31,31 @@
             Login as:
           </div>
           <div class="ui-grid-row">
-            <p-dropdown
-              [options]="loginAsOptions"
-              [(ngModel)]="role"
-              name="role"
-              placeholder="Select"
-              (onChange)="onChange($event)"
-            >
-            </p-dropdown>
+            <div class="ui-grid-col-6">
+              <p-radioButton
+                name="role"
+                value="Client"
+                label="Client"
+                [(ngModel)]="role"
+                (onClick)="onClientClick($event)"
+                id="loginRadioButton"
+              >
+              </p-radioButton>
+            </div>
+            <div class="ui-grid-col-6">
+              <p-radioButton
+                name="role"
+                value="Admin"
+                label="Admin"
+                [(ngModel)]="role"
+                (onClick)="onAdminClick($event)"
+                id="loginRadioButton"
+              >
+              </p-radioButton>
+            </div>
           </div>
           <p-footer>
-            <button pButton type="submit" label="Submit" id="loginButton" [disabled]="disableSubmitButton"></button>
+            <button pButton type="submit" label="Submit" id="loginButton"></button>
           </p-footer>
         </p-panel>
       </form>

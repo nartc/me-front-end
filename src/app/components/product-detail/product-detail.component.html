@@ -1,3 +1,57 @@
-<p>
-  product-detail works!
-</p>
+<!--Confirmation Dialog -->
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle"></p-confirmDialog>
+
+<div class="ui-g">
+  <div class="ui-g-6">
+    <button 
+      pButton 
+      type="button" 
+      class="ui-button-info" 
+      label="Back To Products" 
+      icon="fa-arrow-circle-o-left" 
+      iconPos="left" 
+      (click)="onClick()"
+    >
+    </button>
+  </div>
+  <div class="ui-g-6 ui-rtl" dir="rtl">
+    <p-splitButton 
+      label="Manage" 
+      [model]="buttonItems" 
+      styleClass="ui-button-secondary" 
+      menuStyleClass="productDetailSplitBtnMenu"
+    >
+    </p-splitButton> 
+  </div>
+</div>
+
+<!-- Product Detail -->
+<div *ngIf="product"> 
+  <p-panel styleClass="productDetailPanel">
+    <p-header>
+      <h3 class="ui-panel-title" style="display:inline-block;margin-top:10px">{{product.productDetails.name}}</h3>
+    </p-header>
+    <div class="ui-g">
+      <div class="ui-g-8 ui-sm-12">
+        <h4 style="margin-top: 10px">Product Number: {{id}}</h4>
+      </div>
+      <div class="ui-g-4 ui-sm-12">
+        <h3 class="pull-right">
+          In Stock: 
+          <span
+            [class.text-danger]="outOfStock"
+            [class.text-success]="!outOfStock"
+          >
+            {{product.inStock}}
+          </span>
+        </h3>
+      </div>
+    </div>
+    <hr>
+    <ul class="list-group">
+      <li class="list-group-item" style="text-align: center"><img src="{{product.productDetails.image}}"></li>
+      <li class="list-group-item">Description: {{product.productDetails.description}}</li>
+    </ul>
+    <p-footer></p-footer>
+  </p-panel>
+</div>

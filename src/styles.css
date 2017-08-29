@@ -52,11 +52,13 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
     background: #5cb85c;
 }
 
-.clientsTable .ui-state-default{
+.clientsTable .ui-state-default,
+.productsTable .ui-state-default{
     background: #67b021;
 }
 
-.clientDetailSplitBtnMenu.ui-menu{
+.clientDetailSplitBtnMenu.ui-menu,
+.productDetailSplitBtnMenu.ui-menu{
     width: 7.75em;
     left: 0 !important;
 }
@@ -65,4 +67,12 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
     background: #ece8da;
     border: 1px solid #d4ccb0;
     border-radius: 2px;
+}
+
+#loginRadioButton label.ui-radiobutton-label {
+    margin-bottom: 0;
+}
+
+#loginRadioButton .ui-state-default{
+    background: #ece8da;
 }

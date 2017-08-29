@@ -1,3 +1,148 @@
-<p>
-  product-add works!
-</p>
+<div class="ui-g">
+  <div class="ui-g-6">
+    <button 
+      pButton 
+      type="button" 
+      class="ui-button-info" 
+      label="Back To Products" 
+      icon="fa-arrow-circle-o-left" 
+      iconPos="left" 
+      (click)="onClick()"
+    >
+    </button>
+  </div>
+  <div class="ui-g-6">
+    <!--TODO-->
+  </div>
+</div>
+
+<p-growl [value]="addProductMessages" styleClass="addProductGrowl"></p-growl>
+<form 
+  [formGroup]="addProductForm"
+  (ngSubmit)="onAddProductSubmit(addProductForm.value)"
+>
+  <p-panel header="Add Product"> 
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+      <!-- Product Name Input -->
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Name:
+        </div>
+        <div class="ui-grid-col-6" formGroupName="productDetails">
+          <input 
+            pInputText
+            type="text"
+            formControlName="name"
+          >
+        </div>
+        <div class="ui-grid-4"></div>
+      </div> <!--Ends-->
+      <!-- Product Description Input -->
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Description:
+        </div>
+        <div class="ui-grid-col-6" formGroupName="productDetails">
+          <textarea
+            pInputTextarea
+            [rows]="5" 
+            [cols]="60"
+            autoResize="autoResize"
+            formControlName="description"
+          >
+          </textarea>
+        </div>
+        <div class="ui-grid-4"></div>
+      </div> <!--Ends-->
+      <!-- Product Unit Input -->
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Unit:
+        </div>
+        <div class="ui-grid-col-6" formGroupName="productDetails">
+          <p-dropdown
+            [options]="units"
+            formControlName="unit"
+            placeholder="Select a unit"
+            [style]="{'width':'35%'}"
+          >
+          </p-dropdown>
+        </div>
+        <div class="ui-grid-4"></div>
+      </div> <!--Ends-->
+      <!-- Product Image Input -->
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Image:
+        </div>
+        <div class="ui-grid-col-6" formGroupName="productDetails">
+          <!-- <p-fileUpload 
+            mode="basic"
+            name="image"
+            customUpload="true" 
+            (uploadHandler)="imageUpload($event)"
+          >
+          </p-fileUpload> -->
+            <input type="file" formControlName="image" accept="image/*">
+        </div>
+        <div class="ui-grid-4"></div>
+      </div> <!--Ends-->
+      <!-- Product Sell Price Input -->
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Sell Price:
+        </div>
+        <div class="ui-grid-col-6">
+          <input 
+            pInputText
+            type="number"
+            formControlName="productSellPrice"
+          >
+        </div>
+        <div class="ui-grid-4"></div>
+      </div> <!--Ends-->
+      <!-- Product Buy Price Input -->
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Buy Price:
+        </div>
+        <div class="ui-grid-col-6">
+          <input 
+            pInputText
+            type="number"
+            formControlName="productBuyPrice"
+          >
+        </div>
+        <div class="ui-grid-4"></div>
+      </div> <!--Ends-->
+      <!-- Product Instock Input -->
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Quantity Instock:
+        </div>
+        <div class="ui-grid-col-6">
+          <input 
+            pInputText
+            type="number"
+            formControlName="inStock"
+          >
+        </div>
+        <div class="ui-grid-4"></div>
+      </div> <!--Ends-->
+      <!-- SUBMIT Button -->
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"></div>
+        <div class="ui-grid-col-6">
+          <button
+            pButton
+            type="submit"
+            label="Submit"
+            [disabled]="!addProductForm.valid"
+          >
+          </button>
+        </div>
+      </div>
+    </div> <!--Grid-->
+  </p-panel>
+</form>
+
