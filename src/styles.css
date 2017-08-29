@@ -39,7 +39,8 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 #viewProductsButton.ui-button,
 #viewOrdersButton.ui-button,
 #viewVendorOrdersButton.ui-button,
-#addClientButton.ui-button{
+#addClientButton.ui-button,
+#addProductButton.ui-button{
     display: block;
     width: 90%;
     margin: auto;

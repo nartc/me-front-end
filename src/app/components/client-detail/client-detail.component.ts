@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ClientService } from '../../services/client.service';
 import { MenuItem, ConfirmationService } from 'primeng/primeng';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { Client } from '../../models/client';
 
@@ -21,7 +22,9 @@ export class ClientDetailComponent implements OnInit {
   constructor(
     public router: Router,
     public aRoute: ActivatedRoute,
-    public clientService: ClientService
+    public clientService: ClientService,
+    public confirmationService: ConfirmationService,
+    public flashMessagesService: FlashMessagesService
   ) { }
 
   ngOnInit() {
@@ -54,7 +57,34 @@ export class ClientDetailComponent implements OnInit {
         label: 'Delete',
         icon: 'fa-close',
         command: () => {
-          //TODO Delete Client
+          this.confirmationService.confirm({
+            message: 'This action will permanently delete Object "'+this.id+'". Do you want to proceed?',
+            accept: () => {
+              this.clientService.deleteClient(this.id).subscribe(
+                (data: any): void => {
+                  if(data.success) {
+                    this.flashMessagesService.show(
+                      'Client deleted',
+                      {
+                        cssClass: 'ui-messages-info',
+                        timeout: 3000
+                      }
+                    );
+                    this.router.navigate(['/clients']);
+                  } else {
+                    this.flashMessagesService.show(
+                      data.msg,
+                      {
+                        cssClass: 'ui-messages-info',
+                        timeout: 3000
+                      }
+                    );
+                    this.router.navigate(['/client/'+this.id]);
+                  }
+                }
+              );
+            }
+          });
         }
       }
     ];

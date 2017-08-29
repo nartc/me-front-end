@@ -127,17 +127,45 @@ export class ClientEditComponent implements OnInit {
   }
 
   onEditClientSubmit(value) {
-
+    this.client = value;
+    this.confirmationService.confirm({
+      message: 'Are you sure to make edit to this client?',
+      accept: () => {
+        this.clientService.updateClient(this.id, this.client).subscribe(
+          (data: any): void => {
+            if(data.success) {
+              this.flashMessagesService.show(
+                'Client Info Updated',
+                {
+                  cssClass: 'ui-messages-info',
+                  timeout: 3000
+                }
+              );
+              this.router.navigate(['/client-detail/'+this.id]);
+            } else {
+              this.flashMessagesService.show(
+                'Client Info Updated Failed',
+                {
+                  cssClass: 'ui-messages-danger',
+                  timeout: 3000
+                }
+              );
+              this.router.navigate(['/edit-client/'+this.id]);
+            }
+          }
+        );
+      }
+    });
   }
 
   checkBoolean() {
     if(this.disabledOnEdit) {
       this.editClientForm.reset({
-        'balance': {value: 0, disabled: true}
+        'balance': {value: '0', disabled: true}
       });
     } else {
       this.editClientForm.reset({
-        'balance': {value: 0, disabled: false}
+        'balance': {value: '0', disabled: false}
       });
     }
   }
