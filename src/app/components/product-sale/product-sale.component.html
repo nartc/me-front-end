@@ -1,0 +1,128 @@
+<div class="ui-g">
+    <div class="ui-g-6 ui-lg-6 ui-md-6 ui-sm-12"></div>
+    <div class="ui-g-6 ui-lg-6 ui-md-6 ui-sm-12 ui-rtl" dir="rtl">
+        <button 
+            pButton 
+            type="button"
+            label="Go to cart"
+            icon="fa-shopping-cart"
+            [routerLink]="['/cart/', role, cartId]"
+        >
+        </button>
+    </div>
+</div>
+<!-- Client View -->
+<div *ngIf="role == 'Client'">
+    <p-carousel
+        *ngIf="products" 
+        headerText="Products"
+        [value]="products"
+        breakpoint="736"
+    >
+        <ng-template let-product pTemplate="item">
+            <div class="ui-grid ui-grid-responsive">
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-12 ui-sm-12">
+                        <img src="{{product.productDetails.image}}" width="150" height="150">
+                    </div>
+                </div>
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-12 ui-sm-12"><h4>{{product.productDetails.name}}</h4></div>
+                </div>
+                <div class="ui-g">
+                    <div class="ui-g-6"><h5>{{product.productSellPrice | currency:'USD':true}}</h5></div>
+                    <div class="ui-g-6 ui-rtl" dir="rtl">Sold by: {{product.productDetails.unit}}</div>
+                </div>
+                <hr>
+                <div class="ui-g">
+                    <div class="ui-g-6 ui-sm-12">
+                        <button
+                            pButton
+                            type="button"
+                            label="Details"
+                            icon="fa-info-circle"
+                            class="ui-button-info"
+                            (click)="displayDetail(product)"
+                        >
+                        </button>
+                    </div>
+                    <div class="ui-g-6 ui-sm-12 ui-rtl" dir="rtl">
+                        <button
+                            pButton
+                            type="button"
+                            label="Add to Cart"
+                            icon="fa-cart-plus"
+                            (click)="addToCartClick(product)"
+                        >
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+<!-- Admin View  -->
+<div *ngIf="role == 'Admin'">
+        <p-carousel
+            *ngIf="products" 
+            headerText="Products"
+            [value]="products"
+            breakpoint="736"
+        >
+            <ng-template let-product pTemplate="item">
+                <div class="ui-grid ui-grid-responsive">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-sm-12">
+                            <img src="{{product.productDetails.image}}" width="150" height="150">
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-sm-12"><h4>{{product.productDetails.name}}</h4></div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-6"><h5>{{product.productBuyPrice | currency:'USD':true}}</h5></div>
+                        <div class="ui-g-6 rtl" dir="rtl">Sold by: {{product.productDetails.unit}}</div>
+                    </div>
+                    <hr>
+                    <div class="ui-g">
+                        <div class="ui-g-6 ui-lg-6 ui-md-12 d-none d-lg-block">
+                            Quantity:
+                        </div>
+                        <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                            <p-spinner
+                                placeholder="0"
+                                size="15"  
+                                [min]="0" 
+                                [max]="product.inStock"
+                                (onBlur)="onQuantitySpinnerBlur($event)"
+                            >
+                            </p-spinner>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                            <button
+                                pButton
+                                type="button"
+                                label="Details"
+                                icon="fa-info-circle"
+                                class="ui-button-info"
+                                (click)="displayDetail(product)"
+                            >
+                            </button>
+                        </div>
+                        <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12 rtl" dir="rtl">
+                            <button
+                                pButton
+                                type="button"
+                                label="Add to Cart"
+                                icon="fa-cart-plus"
+                                (click)="addToCartClick(product)"
+                            >
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </div>

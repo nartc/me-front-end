@@ -13,6 +13,7 @@ import { FileUploadModule,
          InputTextModule,
          InputTextareaModule,
          InputMaskModule,
+         SpinnerModule,
          PanelModule,
          ButtonModule,
          MessagesModule,
@@ -23,7 +24,8 @@ import { FileUploadModule,
          ConfirmDialogModule, ConfirmationService,
          SplitButtonModule,
          DropdownModule,
-         RadioButtonModule
+         RadioButtonModule,
+         CarouselModule
        } from 'primeng/primeng';
        
 //Services
@@ -70,7 +72,7 @@ const appRoutes: Routes = [
   {path: 'add-client', component: ClientAddComponent},
   {path: 'edit-client/:id', component: ClientEditComponent},
   {path: 'cart/:role', component: CartComponent},
-  {path: 'sale', component: ProductSaleComponent},
+  {path: 'sale/:role', component: ProductSaleComponent},
   {path: 'products', component: ProductsComponent},
   {path: 'product-detail/:id', component: ProductDetailComponent},
   {path: 'add-product', component: ProductAddComponent},
@@ -118,6 +120,7 @@ const appRoutes: Routes = [
     FileUploadModule, 
     InputTextModule,
     InputTextareaModule,
+    SpinnerModule,
     InputMaskModule,
     PanelModule,
     ButtonModule,
@@ -129,7 +132,8 @@ const appRoutes: Routes = [
     ConfirmDialogModule,
     SplitButtonModule,
     DropdownModule,
-    RadioButtonModule
+    RadioButtonModule,
+    CarouselModule
   ],
   providers: [
     ConfirmationService,

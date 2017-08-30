@@ -83,7 +83,7 @@
             (uploadHandler)="imageUpload($event)"
           >
           </p-fileUpload> -->
-            <input type="file" formControlName="image" accept="image/*">
+            <input type="file" formControlName="image" accept="image/*" (change)="onChange($event)">
         </div>
         <div class="ui-grid-4"></div>
       </div> <!--Ends-->

@@ -22,6 +22,12 @@
         <li class="nav-item" *ngIf="authService.isLoggedIn() && clientService.currentClient" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
             <a class="nav-link" style="cursor: pointer" [routerLink]="['/dashboard/',clientService.currentClient?.role, clientService.currentClient?._id]">Dashboard</a>
         </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn() && clientService.currentClient" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" style="cursor: pointer" [routerLink]="['/sale/', clientService.currentClient?.role]">Shop</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.currentAdmin" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" style="cursor: pointer" [routerLink]="['/sale/', authService.currentAdmin?.role]">Vendor</a>
+        </li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="!authService.isLoggedIn()"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">

@@ -20,12 +20,16 @@ export class ProductAddComponent implements OnInit {
   public units: Array<SelectItem> = [];
   public addProductMessages: Array<Message> = [];
 
+  public pickImage: boolean;
+
   constructor(
     public fB: FormBuilder,
     public router: Router,
     public productService: ProductService,
     public flashMessagesService: FlashMessagesService
-  ) { }
+  ) {
+    this.pickImage = false;
+  }
 
   ngOnInit() {
     this.addProductForm = this.fB.group(
@@ -57,20 +61,22 @@ export class ProductAddComponent implements OnInit {
   onAddProductSubmit(value) {
     this.product = value;
     
-    let img = value.productDetails.image[0];
-    let reader = new FileReader();
-    
-    
-
-    reader.onloadend = () => {
-      console.log('RESULT', reader.result);
-      value.productDetails.image[0] = reader.result;
-      this.product.productDetails.image = reader.result;
+    if(this.pickImage) {
+      let img = value.productDetails.image[0];
+      let reader = new FileReader();
       
+      reader.onloadend = () => {
+        console.log('RESULT', reader.result);
+        value.productDetails.image[0] = reader.result;
+        this.product.productDetails.image = reader.result;
+        
+        this.postProduct(this.product);
+      }
+      
+      reader.readAsDataURL(img);
+    } else {
       this.postProduct(this.product);
     }
-    
-    reader.readAsDataURL(img);
   }
 
   postProduct(product: Product) {
@@ -100,6 +106,10 @@ export class ProductAddComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  onChange(event) {
+    this.pickImage = true;
   }
 
 }
