@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Params } from '@angular/router'; 
+import { CartService } from '../../services/cart.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 
+import { CartEntry } from '../../models/cart';
 import { Product } from '../../models/product';
 
 @Component({
@@ -14,10 +17,18 @@ export class ProductSaleComponent implements OnInit {
   public role: string;
   public product: Product;
   public products: Array<Product>;
+  public quantitySelect: Array<Number>=[];
+
+  public selectedProduct: Product;
+
+  public displayDetailDialog: boolean;
+  public displayAddToCartDialog: boolean;
 
   constructor(
     public productService: ProductService,
-    public aRoute: ActivatedRoute
+    public aRoute: ActivatedRoute,
+    public cartService: CartService,
+    public localStorageService: LocalStorageService
   ) { }
 
   ngOnInit() {
@@ -30,17 +41,28 @@ export class ProductSaleComponent implements OnInit {
         this.products = data.products;
       }
     );
+
+    //Init Cart
+    this.cartService.initCart();
   }
 
   displayDetail(product: Product) {
-    console.log(product);
+    this.selectedProduct = product;
+    this.displayDetailDialog = true;
   }
 
-  addToCartClick(product: Product) {
+  addToCartClick(product: Product, quantitySelect: any) {
     console.log(product);
+    console.log(quantitySelect);
+
+    this.cartService.getCartEntryByProductId(product._id)
+      .then(function(cartEntry: CartEntry){
+        this.cartService.addProductToCart(product, quantitySelect);
+      }.bind(this));
+
   }
 
   onQuantitySpinnerBlur(event) {
-    console.log(event.target.value);
+    console.log(event.target);
   }
 }

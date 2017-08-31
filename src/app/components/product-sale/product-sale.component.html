@@ -19,7 +19,7 @@
         [value]="products"
         breakpoint="736"
     >
-        <ng-template let-product pTemplate="item">
+        <ng-template let-product pTemplate="item" let-i="index">
             <div class="ui-grid ui-grid-responsive">
                 <div class="ui-g">
                     <div class="ui-g-12 ui-md-12 ui-sm-12">
@@ -34,6 +34,23 @@
                     <div class="ui-g-6 ui-rtl" dir="rtl">Sold by: {{product.productDetails.unit}}</div>
                 </div>
                 <hr>
+                <div class="ui-g">
+                    <div class="ui-g-6 ui-lg-6 ui-md-12 d-none d-lg-block">
+                        Quantity:
+                    </div>
+                    <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                        <p-spinner
+                            placeholder="0"
+                            size="10"  
+                            [min]="0" 
+                            [max]="product.inStock"
+                            [(ngModel)]="quantitySelect[i]"
+                            (onBlur)="onQuantitySpinnerBlur($event)"
+                            name="quantitySelect"
+                        >
+                        </p-spinner>
+                    </div>
+                </div>
                 <div class="ui-g">
                     <div class="ui-g-6 ui-sm-12">
                         <button
@@ -52,7 +69,7 @@
                             type="button"
                             label="Add to Cart"
                             icon="fa-cart-plus"
-                            (click)="addToCartClick(product)"
+                            (click)="addToCartClick(product, quantitySelect[i])"
                         >
                         </button>
                     </div>
@@ -63,66 +80,103 @@
 </div>
 <!-- Admin View  -->
 <div *ngIf="role == 'Admin'">
-        <p-carousel
-            *ngIf="products" 
-            headerText="Products"
-            [value]="products"
-            breakpoint="736"
-        >
-            <ng-template let-product pTemplate="item">
-                <div class="ui-grid ui-grid-responsive">
-                    <div class="ui-g">
-                        <div class="ui-g-12 ui-md-12 ui-sm-12">
-                            <img src="{{product.productDetails.image}}" width="150" height="150">
-                        </div>
-                    </div>
-                    <div class="ui-g">
-                        <div class="ui-g-12 ui-md-12 ui-sm-12"><h4>{{product.productDetails.name}}</h4></div>
-                    </div>
-                    <div class="ui-g">
-                        <div class="ui-g-6"><h5>{{product.productBuyPrice | currency:'USD':true}}</h5></div>
-                        <div class="ui-g-6 rtl" dir="rtl">Sold by: {{product.productDetails.unit}}</div>
-                    </div>
-                    <hr>
-                    <div class="ui-g">
-                        <div class="ui-g-6 ui-lg-6 ui-md-12 d-none d-lg-block">
-                            Quantity:
-                        </div>
-                        <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
-                            <p-spinner
-                                placeholder="0"
-                                size="15"  
-                                [min]="0" 
-                                [max]="product.inStock"
-                                (onBlur)="onQuantitySpinnerBlur($event)"
-                            >
-                            </p-spinner>
-                        </div>
-                    </div>
-                    <div class="ui-g">
-                        <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
-                            <button
-                                pButton
-                                type="button"
-                                label="Details"
-                                icon="fa-info-circle"
-                                class="ui-button-info"
-                                (click)="displayDetail(product)"
-                            >
-                            </button>
-                        </div>
-                        <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12 rtl" dir="rtl">
-                            <button
-                                pButton
-                                type="button"
-                                label="Add to Cart"
-                                icon="fa-cart-plus"
-                                (click)="addToCartClick(product)"
-                            >
-                            </button>
-                        </div>
+    <p-dataGrid
+        *ngIf="products" 
+        [value]="products"
+    >
+        <ng-template let-product pTemplate="item" let-i="index">
+            <div class="ui-grid ui-grid-responsive">
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-12 ui-sm-12">
+                        <img src="{{product.productDetails.image}}" width="150" height="150">
                     </div>
                 </div>
-            </ng-template>
-        </p-carousel>
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-12 ui-sm-12"><h4>{{product.productDetails.name}}</h4></div>
+                </div>
+                <div class="ui-g">
+                    <div class="ui-g-6"><h5>{{product.productBuyPrice | currency:'USD':true}}</h5></div>
+                    <div class="ui-g-6 rtl" dir="rtl">Sold by: {{product.productDetails.unit}}</div>
+                </div>
+                <hr>
+                <div class="ui-g">
+                    <div class="ui-g-6 ui-lg-6 ui-md-12 d-none d-lg-block">
+                        Quantity:
+                    </div>
+                    <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                        <p-spinner
+                            placeholder="0"
+                            size="10"  
+                            [min]="0" 
+                            [max]="product.inStock"
+                            [(ngModel)]="quantitySelect[i]"
+                            (onBlur)="onQuantitySpinnerBlur($event)"
+                            name="quantitySelect"
+                        >
+                        </p-spinner>
+                    </div>
+                </div>
+                <div class="ui-g">
+                    <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                        <button
+                            pButton
+                            type="button"
+                            label="Details"
+                            icon="fa-info-circle"
+                            class="ui-button-info"
+                            (click)="displayDetail(product)"
+                        >
+                        </button>
+                    </div>
+                    <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12 rtl" dir="rtl">
+                        <button
+                            pButton
+                            type="button"
+                            label="Add to Cart"
+                            icon="fa-cart-plus"
+                            (click)="addToCartClick(product, quantitySelect[i])"
+                        >
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataGrid>
+</div>
+
+<!-- Details Dialog  -->
+<p-dialog
+    header="Product Details"
+    [(visible)]="displayDetailDialog"
+    [responsive]="true"
+    showEffect="fade"
+    modal="modal"
+    [width]="850"
+    [breakpoint]="850"
+>
+    <div *ngIf="selectedProduct" class="ui-grid ui-grid-responsive ui-grid-pad">
+        <div class="ui-g">
+                <div class="ui-g-12" style="text-align: center;"><h4>{{selectedProduct.productDetails.name}}</h4></div>
+                <div class="ui-g-12">
+                    <div class="ui-g-12 ui-md-3">
+                        <div class="ui-g-12">
+                            <img src="{{selectedProduct.productDetails.image}}" width="200" height="200">
+                        </div>
+                        <div class="ui-g-12">
+                            Blah Blah Blah
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-9">
+                        <ul class="list-group">
+                            <li class="list-group-item"><h5>Unit:</h5> {{selectedProduct.productDetails.unit}}</li>
+                            <li class="list-group-item"><h5>Quantity OH:</h5> {{selectedProduct.inStock}}</li>
+                            <li class="list-group-item"><h5>Desription:</h5> {{selectedProduct.productDetails.description}}</li>
+                        </ul>
+                    </div>
+                </div>
+            <div class="ui-g-12">
+                Footer
+            </div>
+        </div>
     </div>
+</p-dialog>

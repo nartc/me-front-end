@@ -25,7 +25,9 @@ import { FileUploadModule,
          SplitButtonModule,
          DropdownModule,
          RadioButtonModule,
-         CarouselModule
+         CarouselModule,
+         DialogModule,
+         DataGridModule
        } from 'primeng/primeng';
        
 //Services
@@ -133,7 +135,9 @@ const appRoutes: Routes = [
     SplitButtonModule,
     DropdownModule,
     RadioButtonModule,
-    CarouselModule
+    CarouselModule,
+    DialogModule,
+    DataGridModule
   ],
   providers: [
     ConfirmationService,
