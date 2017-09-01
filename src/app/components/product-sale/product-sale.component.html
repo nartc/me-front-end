@@ -6,140 +6,158 @@
             type="button"
             label="Go to cart"
             icon="fa-shopping-cart"
-            [routerLink]="['/cart/', role, cartId]"
+            (click)="onGoToCartClick()"
         >
         </button>
     </div>
 </div>
 <!-- Client View -->
 <div *ngIf="role == 'Client'">
-    <p-carousel
+    <p-dataGrid
         *ngIf="products" 
-        headerText="Products"
         [value]="products"
-        breakpoint="736"
+        [paginator]="true" 
+        [rows]="6"
+        [alwaysShowPaginator]="false"
     >
+        <p-header>
+            Products
+        </p-header>
+
         <ng-template let-product pTemplate="item" let-i="index">
-            <div class="ui-grid ui-grid-responsive">
-                <div class="ui-g">
-                    <div class="ui-g-12 ui-md-12 ui-sm-12">
-                        <img src="{{product.productDetails.image}}" width="150" height="150">
+            <div class="ui-g-12 ui-md-4 ui-sm-12 ui-xs-12" style="padding:3px">
+                <p-panel
+                    [header]="product.productNumber"
+                    [style]="{'text-align':'center'}"
+                >
+                    <img src="{{product.productDetails.image}}" width="150" height="150" alt="product{{i}} placeholder">
+                    <div class="ui-g" style="height:80px">
+                        <div class="ui-g-12 ui-md-12 ui-sm-12">
+                            <h4>{{product.productDetails.name}}</h4>
+                        </div>
                     </div>
-                </div>
-                <div class="ui-g">
-                    <div class="ui-g-12 ui-md-12 ui-sm-12"><h4>{{product.productDetails.name}}</h4></div>
-                </div>
-                <div class="ui-g">
-                    <div class="ui-g-6"><h5>{{product.productSellPrice | currency:'USD':true}}</h5></div>
-                    <div class="ui-g-6 ui-rtl" dir="rtl">Sold by: {{product.productDetails.unit}}</div>
-                </div>
-                <hr>
-                <div class="ui-g">
-                    <div class="ui-g-6 ui-lg-6 ui-md-12 d-none d-lg-block">
-                        Quantity:
+                    <div class="ui-g">
+                        <div class="ui-g-6"><h5>{{product.productSellPrice | currency:'USD':true}}</h5></div>
+                        <div class="ui-g-6 ui-rtl" dir="rtl">Sold by: {{product.productDetails.unit}}</div>
                     </div>
-                    <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
-                        <p-spinner
-                            placeholder="0"
-                            size="10"  
-                            [min]="0" 
-                            [max]="product.inStock"
-                            [(ngModel)]="quantitySelect[i]"
-                            (onBlur)="onQuantitySpinnerBlur($event)"
-                            name="quantitySelect"
-                        >
-                        </p-spinner>
+                    <hr>
+                    <div class="ui-g">
+                        <div class="ui-g-6 ui-lg-6 ui-md-12 d-none d-lg-block">
+                            Quantity:
+                        </div>
+                        <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                            <p-spinner
+                                placeholder="0"
+                                size="10"
+                                [min]="0"
+                                [max]="product.inStock"
+                                [(ngModel)]="quantitySelect[i]"
+                                name="quantitySelect"
+                            >
+                            </p-spinner>
+                        </div>
                     </div>
-                </div>
-                <div class="ui-g">
-                    <div class="ui-g-6 ui-sm-12">
-                        <button
-                            pButton
-                            type="button"
-                            label="Details"
-                            icon="fa-info-circle"
-                            class="ui-button-info"
-                            (click)="displayDetail(product)"
-                        >
-                        </button>
+                    <div class="ui-g">
+                        <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                            <button 
+                                pButton 
+                                type="button"
+                                label="Details"
+                                icon="fa-info-circle"
+                                class="ui-button-info"
+                                (click)="displayDetail(product)"
+                            >
+                            </button>
+                        </div>
+                        <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12 rtl" dir="rtl">
+                            <button
+                                pButton
+                                type="button"
+                                label="Add to Cart"
+                                icon="fa-cart-plus"
+                                data-toggle="modal" 
+                                data-target="#reviewModal"
+                                (click)="addToCartClick(product, quantitySelect[i])"
+                            >
+                            </button>
+                        </div>
                     </div>
-                    <div class="ui-g-6 ui-sm-12 ui-rtl" dir="rtl">
-                        <button
-                            pButton
-                            type="button"
-                            label="Add to Cart"
-                            icon="fa-cart-plus"
-                            (click)="addToCartClick(product, quantitySelect[i])"
-                        >
-                        </button>
-                    </div>
-                </div>
+                </p-panel>
             </div>
         </ng-template>
-    </p-carousel>
+    </p-dataGrid>
 </div>
 <!-- Admin View  -->
 <div *ngIf="role == 'Admin'">
     <p-dataGrid
         *ngIf="products" 
         [value]="products"
+        [paginator]="true" 
+        [rows]="6"
+        [alwaysShowPaginator]="false"
     >
+        <p-header>
+            Products
+        </p-header>
+
         <ng-template let-product pTemplate="item" let-i="index">
-            <div class="ui-grid ui-grid-responsive">
-                <div class="ui-g">
-                    <div class="ui-g-12 ui-md-12 ui-sm-12">
-                        <img src="{{product.productDetails.image}}" width="150" height="150">
-                    </div>
+                <div class="ui-g-12 ui-md-4 ui-sm-12 ui-xs-12" style="padding:3px">
+                    <p-panel
+                        [header]="product.productNumber"
+                        [style]="{'text-align':'center'}"
+                    >
+                        <img src="{{product.productDetails.image}}" width="150" height="150" alt="product{{i}} placeholder">
+                        <div class="ui-g" style="height:80px">
+                            <div class="ui-g-12 ui-md-12 ui-sm-12">
+                                <h4>{{product.productDetails.name}}</h4>
+                            </div>
+                        </div>
+                        <div class="ui-g">
+                            <div class="ui-g-6"><h5>{{product.productBuyPrice | currency:'USD':true}}</h5></div>
+                            <div class="ui-g-6 ui-rtl" dir="rtl">Sold by: {{product.productDetails.unit}}</div>
+                        </div>
+                        <hr>
+                        <div class="ui-g">
+                            <div class="ui-g-6 ui-lg-6 ui-md-12 d-none d-lg-block">
+                                Quantity:
+                            </div>
+                            <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                                <p-spinner
+                                    placeholder="0"
+                                    size="10"
+                                    [min]="0"
+                                    [max]="product.inStock"
+                                    [(ngModel)]="quantitySelect[i]"
+                                    name="quantitySelect"
+                                >
+                                </p-spinner>
+                            </div>
+                        </div>
+                        <div class="ui-g">
+                            <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                                <button 
+                                    pButton 
+                                    type="button"
+                                    label="Details"
+                                    icon="fa-info-circle"
+                                    class="ui-button-info"
+                                    (click)="displayDetail(product)"
+                                >
+                                </button>
+                            </div>
+                            <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12 rtl" dir="rtl">
+                                <button
+                                    pButton
+                                    type="button"
+                                    label="Add to Cart"
+                                    icon="fa-cart-plus"                             
+                                    (click)="addToCartClick(product, quantitySelect[i])"
+                                >
+                                </button>
+                            </div>
+                        </div>
+                    </p-panel>
                 </div>
-                <div class="ui-g">
-                    <div class="ui-g-12 ui-md-12 ui-sm-12"><h4>{{product.productDetails.name}}</h4></div>
-                </div>
-                <div class="ui-g">
-                    <div class="ui-g-6"><h5>{{product.productBuyPrice | currency:'USD':true}}</h5></div>
-                    <div class="ui-g-6 rtl" dir="rtl">Sold by: {{product.productDetails.unit}}</div>
-                </div>
-                <hr>
-                <div class="ui-g">
-                    <div class="ui-g-6 ui-lg-6 ui-md-12 d-none d-lg-block">
-                        Quantity:
-                    </div>
-                    <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
-                        <p-spinner
-                            placeholder="0"
-                            size="10"  
-                            [min]="0" 
-                            [max]="product.inStock"
-                            [(ngModel)]="quantitySelect[i]"
-                            (onBlur)="onQuantitySpinnerBlur($event)"
-                            name="quantitySelect"
-                        >
-                        </p-spinner>
-                    </div>
-                </div>
-                <div class="ui-g">
-                    <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
-                        <button
-                            pButton
-                            type="button"
-                            label="Details"
-                            icon="fa-info-circle"
-                            class="ui-button-info"
-                            (click)="displayDetail(product)"
-                        >
-                        </button>
-                    </div>
-                    <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12 rtl" dir="rtl">
-                        <button
-                            pButton
-                            type="button"
-                            label="Add to Cart"
-                            icon="fa-cart-plus"
-                            (click)="addToCartClick(product, quantitySelect[i])"
-                        >
-                        </button>
-                    </div>
-                </div>
-            </div>
         </ng-template>
     </p-dataGrid>
 </div>
@@ -180,3 +198,60 @@
         </div>
     </div>
 </p-dialog>
+
+<!-- Add To Cart Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" id="modalContent">
+      <div class="modal-header" id="modalHeader">
+        <h5 class="modal-title" id="exampleModalLabel">Review Cart</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div *ngIf="carts" class="ui-grid ui-grid-responsive ui-grid-pad">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Product#</th>
+                                    <th>Name</th>
+                                    <th>Unit</th>
+                                    <th>Quantity</th>
+                                    <th>Sub Total</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-style:italic">
+                                <tr *ngFor="let item of carts">
+                                    <td><img src="{{item.product.productDetails.image}}" width="25" height="25"></td>
+                                    <td>{{item.product.productNumber}}</td>
+                                    <td>{{item.product.productDetails.name}}</td>
+                                    <td>{{item.product.productDetails.unit}}</td>
+                                    <td>x{{item.quantity}}</td>
+                                    <td>{{item.quantity * item.product.productSellPrice | currency:'USD':true}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="font-style: italic; font-size:small">**You can finalize order before Checking Out.</p>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer" id="modalFooter">
+        <button pButton type="button" label="Continue Shopping" icon="fa-arrow-circle-o-left" class="ui-button-secondary" data-dismiss="modal"></button>
+        <button 
+            pButton 
+            type="button" 
+            label="Proceed to Checkout" 
+            icon="fa-arrow-circle-o-right" 
+            class="ui-button-primary"
+            (click)="onGoToCartClick()"
+        >    
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

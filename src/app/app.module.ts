@@ -27,7 +27,8 @@ import { FileUploadModule,
          RadioButtonModule,
          CarouselModule,
          DialogModule,
-         DataGridModule
+         DataGridModule,
+         OverlayPanelModule
        } from 'primeng/primeng';
        
 //Services
@@ -73,7 +74,7 @@ const appRoutes: Routes = [
   {path: 'client-detail/:id', component: ClientDetailComponent},
   {path: 'add-client', component: ClientAddComponent},
   {path: 'edit-client/:id', component: ClientEditComponent},
-  {path: 'cart/:role', component: CartComponent},
+  {path: 'cart/:role/:id', component: CartComponent},
   {path: 'sale/:role', component: ProductSaleComponent},
   {path: 'products', component: ProductsComponent},
   {path: 'product-detail/:id', component: ProductDetailComponent},
@@ -137,7 +138,8 @@ const appRoutes: Routes = [
     RadioButtonModule,
     CarouselModule,
     DialogModule,
-    DataGridModule
+    DataGridModule,
+    OverlayPanelModule
   ],
   providers: [
     ConfirmationService,

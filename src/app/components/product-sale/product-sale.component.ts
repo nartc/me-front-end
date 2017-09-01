@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
-import { ActivatedRoute, Params } from '@angular/router'; 
+import { Router, ActivatedRoute, Params } from '@angular/router'; 
 import { CartService } from '../../services/cart.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 
@@ -15,9 +15,12 @@ import { Product } from '../../models/product';
 export class ProductSaleComponent implements OnInit {
   
   public role: string;
+  public carts: Array<CartEntry>;
   public product: Product;
   public products: Array<Product>;
   public quantitySelect: Array<Number>=[];
+
+  public randomGeneratedString: string;
 
   public selectedProduct: Product;
 
@@ -28,7 +31,8 @@ export class ProductSaleComponent implements OnInit {
     public productService: ProductService,
     public aRoute: ActivatedRoute,
     public cartService: CartService,
-    public localStorageService: LocalStorageService
+    public localStorageService: LocalStorageService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -52,17 +56,45 @@ export class ProductSaleComponent implements OnInit {
   }
 
   addToCartClick(product: Product, quantitySelect: any) {
-    console.log(product);
-    console.log(quantitySelect);
 
-    this.cartService.getCartEntryByProductId(product._id)
+    this.cartService.getCartEntryByProductProductNumber(product.productNumber)
       .then(function(cartEntry: CartEntry){
         this.cartService.addProductToCart(product, quantitySelect);
       }.bind(this));
+    
+    
+    setTimeout(()=>{
+      this.cartService.getAllCartEntries()
+      .then((cartEntries) => {
+        this.carts = cartEntries;
+      });
+    }, 1000);
+  }
 
+  onTestClick() {
   }
 
   onQuantitySpinnerBlur(event) {
     console.log(event.target);
+  }
+
+  onGoToCartClick() {
+    this.randomGeneratedString = this.genIdString();
+    this.router.navigate(['/cart/'+this.role+'/'+this.randomGeneratedString]);
+  }
+
+  genIdString() {
+    const identifier = "MEC";
+    const possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    var Id = '';
+
+    for(var i = 0; i < 9; i++) {
+      Id += possibleChars.charAt(Math.random() * possibleChars.length);
+    };
+
+    Id = identifier + "-" + Id;
+
+    return Id;
   }
 }

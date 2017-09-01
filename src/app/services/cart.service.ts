@@ -16,7 +16,7 @@ export class CartService {
     
     if(!this.localStorageService.fetchValueFromKey('cart')) {
       
-      let emptyMap: { [key:string]:any; } = {};
+      let emptyMap: {[key:string]:any; } = {};
       this.localStorageService.saveValueWithKey('cart', JSON.stringify(emptyMap));
     }
   }
@@ -24,7 +24,7 @@ export class CartService {
   saveListOfCartEntries(listOfCartEntries: Array<CartEntry>) {
 
     let cartMap = listOfCartEntries.reduce((map, cartEntry, i) => {
-      map[cartEntry.product._id] = cartEntry;
+      map[cartEntry.product.productNumber] = cartEntry;
       return map;
     }, (err) => {
       console.log(err);
@@ -33,9 +33,9 @@ export class CartService {
     this.localStorageService.saveValueWithKey('cart', JSON.stringify(cartMap));
   }
 
-  getCartEntryByProductId(id: string) {
+  getCartEntryByProductProductNumber(productNumber: string) {
     let myCartMap = JSON.parse(this.localStorageService.fetchValueFromKey('cart'));
-    return Promise.resolve(myCartMap[id]);
+    return Promise.resolve(myCartMap[productNumber]);
   }
   
   addProductToCart(product, quantity) {
@@ -47,13 +47,13 @@ export class CartService {
 
     let cartMap = JSON.parse(this.localStorageService.fetchValueFromKey('cart'));
 
-    if(cartMap[product._id] != undefined) {
-      let cartInstance = cartMap[product._id];
+    if(cartMap[product.productNumber] != undefined) {
+      let cartInstance = cartMap[product.productNumber];
       
       cartInstance.quantity = cartInstance.quantity + quantity;
-      cartMap[product._id] = cartInstance;
+      cartMap[product.productNumber] = cartInstance;
     } else {
-      cartMap[product._id] = {
+      cartMap[product.productNumber] = {
         'product': product,
         'quantity': quantity
       }
