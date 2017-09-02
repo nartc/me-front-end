@@ -80,7 +80,9 @@ export class ProductSaleComponent implements OnInit {
 
   onGoToCartClick() {
     this.randomGeneratedString = this.genIdString();
-    this.router.navigate(['/cart/'+this.role+'/'+this.randomGeneratedString]);
+    setTimeout(() => {
+      this.router.navigate(['/cart/'+this.role+'/'+this.randomGeneratedString]);
+    }, 500)
   }
 
   genIdString() {
