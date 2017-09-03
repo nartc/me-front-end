@@ -53,7 +53,8 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 }
 
 .clientsTable .ui-state-default,
-.productsTable .ui-state-default{
+.productsTable .ui-state-default,
+.clientOrdersTable .ui-state-default{
     background: #67b021;
 }
 

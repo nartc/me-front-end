@@ -145,6 +145,14 @@ export class CartComponent implements OnInit {
               }
             }
           );
+
+          this.clientService.updateBalance(this.userId, this.subTotal).subscribe(
+            (data: any):void => {
+              if(data.success) {
+                console.log(data);
+              }
+            }
+          );
         }
       });
     } else if(this.role == 'Admin') {

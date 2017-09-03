@@ -1,6 +1,53 @@
-<p *ngIf="role == 'Client'">
-  Client dashboard works!
-</p>
+<!--Confirmation Dialog-->
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle"></p-confirmDialog>
+
+<div *ngIf="role == 'Client'">
+  <div class="ui-g">
+    <div class="ui-g-6">
+        <h2><i class="fa fa-book"></i> Orders</h2>
+    </div>
+    <div *ngIf="client" class="ui-g-6 ui-rtl" dir="rtl">
+      <h5 class="text-muted">Balance: 
+        <span
+          [class.text-danger]="hasBalance"
+          [class.text-success]="!hasBalance"
+        >
+          {{client.balance | currency:'USD':true}}
+        </span>
+      </h5>
+    </div>
+    <div class="ui-g-12">
+      <p-dataTable
+        [value]="orders"
+        [responsive]="true"
+        selectionMode="single" 
+        [(selection)]="selectedOrder" 
+        (onRowSelect)="onRowSelect($event)"
+        styleClass="clientOrdersTable"
+      >
+        <p-column header="Date" [style]="{'width':'15%'}">
+          <ng-template let-col let-order="rowData" pTemplate='body'>
+            <span>{{order.orderDate | date:'short'}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="orderNumber" header="ID"></p-column>
+        <p-column header="No. of Products" [style]="{'width':'12%'}">
+          <ng-template pTemplate="body" let-col let-order="rowData">
+            <span>{{order.orderDetails.length}}</span>
+          </ng-template>
+        </p-column>
+        <p-column header="Total" [style]="{'width':'12%'}">
+          <ng-template let-col let-order="rowData" pTemplate='body'>
+            <span>{{order.orderBalance | currency:'USD':true}}</span>
+          </ng-template>
+        </p-column>
+        <p-footer *ngIf="orders">
+          Total orders: {{orders.length}}
+        </p-footer>
+      </p-dataTable>
+    </div>
+  </div>
+</div>
 <div *ngIf="role == 'Admin'">
   <div class="ui-g">
     <!--Main Dashboard-->

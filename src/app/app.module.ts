@@ -81,6 +81,7 @@ const appRoutes: Routes = [
   {path: 'edit-product/:id', component: ProductEditComponent},
   {path: 'client-orders', component: ClientOrdersComponent},
   {path: 'vendor-orders', component: VendorOrdersComponent},
+  {path: 'client-order-detail/:id', component: ClientOrderDetailComponent},
   {path: '**', component: PageNotFoundComponent}
 ]
 

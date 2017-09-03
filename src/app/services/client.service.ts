@@ -77,6 +77,13 @@ export class ClientService {
     return this.httpService.put('/clients/update/'+id, client, {'Content-Type':'application/json'});
   }
 
+  updateBalance(id: string, balance: number): Observable<any>{
+    console.log(id);
+    console.log(balance);
+    let body = {balance};
+    return this.httpService.put('/clients/balanceUpdate/'+id, body, {'Content-Type':'application/json'});
+  }
+
   deleteClient(id: string): Observable<any>{
     return this.httpService.delete('/clients/delete/'+id, {});
   }

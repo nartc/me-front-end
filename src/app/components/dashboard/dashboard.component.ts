@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { ClientService } from '../../services/client.service';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
-import { HttpService } from '../../services/http.service';
+import { ConfirmationService } from 'primeng/primeng';
 
 import { Client } from '../../models/client';
 import { Product } from '../../models/product';
@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   
   public admin: Admin;
   public client: Client;
+  public hasBalance: boolean = false;
 
   public clientId: string;
 
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
   public clients: Array<Client>;
   public products: Array<Product>;
   public orders: Array<Order>;
+  public order: Order;
 
   public role: String = '';
 
@@ -38,7 +40,7 @@ export class DashboardComponent implements OnInit {
     public clientService: ClientService,
     public productService: ProductService,
     public orderService: OrderService,
-    public httpService: HttpService
+    public confirmationService: ConfirmationService
   ) { }
 
   ngOnInit() {
@@ -92,6 +94,11 @@ export class DashboardComponent implements OnInit {
       this.clientService.getClientProfile().subscribe(
         (profile: any): void => {
           this.client = profile.client;
+          if(this.client.balance > 0) {
+            this.hasBalance = true;
+          } else {
+            this.hasBalance = false;
+          }
         },
         (err: Error): void => {
           console.log(err);
@@ -99,15 +106,22 @@ export class DashboardComponent implements OnInit {
       );
 
       console.log(this.clientId);
-
       //Get Orders by UserId
       this.orderService.getOrdersByUserId(this.clientId).subscribe(
         (data: any): void => {
           this.orders = data.orders;
-          console.log(this.orders);
         }
-      );      
+      );
     }
+  }
+
+  onRowSelect(event) {
+    this.confirmationService.confirm({
+      message: 'View details of "'+event.data.orderNumber+'" ?',
+      accept: () => {
+        this.router.navigate(['/client-order-detail/'+event.data.orderNumber]);
+      }
+    });
   }
 
 }
