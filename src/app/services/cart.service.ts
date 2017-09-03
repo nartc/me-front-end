@@ -26,9 +26,7 @@ export class CartService {
     let cartMap = listOfCartEntries.reduce((map, cartEntry, i) => {
       map[cartEntry.product.productNumber] = cartEntry;
       return map;
-    }, (err) => {
-      console.log(err);
-    });
+    }, {});
 
     this.localStorageService.saveValueWithKey('cart', JSON.stringify(cartMap));
   }

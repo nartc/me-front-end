@@ -1,0 +1,24 @@
+table tbody input {
+    border-radius: 5px;
+}
+
+.ui-g-12#totalBox {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.ui-g-12#totalFooter {
+    padding: 0;
+    border-top: 1px solid #ccc;
+    background-color: #e9ecef;
+}
+
+.ui-g-12#sendButton {
+    padding: 0;
+    margin-top: 10px;
+}
+
+input#quantityInput {
+    text-align: center;
+}

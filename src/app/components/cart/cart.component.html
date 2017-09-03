@@ -1,3 +1,136 @@
-<p>
-  cart works!
-</p>
+<!--Confirmation Dialog -->
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle"></p-confirmDialog>
+
+<div class="ui-g">
+  <div class="ui-g-6 ui-md-6 ui-sm-12">
+    <h2><i class="fa fa-shopping-cart"> </i> Cart</h2>
+  </div>
+  <div class="ui-g-6">
+    <!-- TODO -->
+  </div>
+</div>
+<hr>
+
+<!-- Cart Entry -->
+<div class="ui-g">
+  <table class="table table-responsive">
+    <thead class="thead-default">
+      <tr>
+        <th>Detail</th>
+        <th>Unit</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Line Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="cart && cart.length > 0;else noCart">
+      <tr *ngFor="let line of cart">
+        <td>
+          <div class="ui-g">
+            <div class="ui-g-2"><img src="{{line.product.productDetails.image}}" width="50" height="50"></div>
+            <div class="ui-g-10">
+              <p>
+                {{line.product.productDetails.name}}<br>
+                <span style="font-style:italic">{{line.product.productNumber}}</span>
+              </p>
+            </div>
+          </div>
+        </td>
+        <td>{{line.product.productDetails.unit}}</td>
+        <td>
+          <span *ngIf="role == 'Client'">{{line.product.productSellPrice | currency:'USD':true}}</span>
+          <span *ngIf="role == 'Admin'">{{line.product.productBuyPrice | currency:'USD':true}}</span>
+        </td>
+        <td>x
+          <input 
+            id="quantityInput"
+            type="number" 
+            [(ngModel)]="line.quantity" 
+            name="quantity" 
+            min="1" 
+            [max]="line.product.inStock"
+            (change)="onChange(line)"
+          >
+        </td>
+        <td>
+          <span *ngIf="role == 'Client'">{{line.quantity * line.product.productSellPrice | currency:'USD':true}}</span>
+          <span *ngIf="role == 'Admin'">{{line.quantity * line.product.productBuyPrice | currency:'USD':true}}</span>
+        </td>
+        <td>
+          <button 
+            pButton
+            type="button"
+            label="Remove"
+            icon="fa-close"
+            class="ui-button-danger"
+            (click)="onRemoveClick(line.product.productNumber)"
+          >
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noCart>
+  <h5>Your cart is empty. Go add some products</h5>
+  <button 
+      pButton
+      type="button"
+      label="Go to Shop"
+      class="ui-button-primary"
+      icon="fa-arrow-circle-o-left"
+      [routerLink]="['/sale/', role]"
+    >
+  </button>
+</ng-template>
+<hr>
+<div class="ui-g">
+    <div class="ui-g-6 ui-md-6 ui-sm-12 ui-xs-12">
+      <span *ngIf="role == 'Admin'">TODO@-ADD ORDER FOR CUSTOMER</span>
+    </div>
+    <div class="ui-g-3 ui-md-3"></div>
+    <div class="ui-g-3 ui-md-3 ui-sm-12 ui-xs-12">
+      <div class="ui-g-12" id="totalBox">
+          <div class="ui-g-6"><h5>Subtotal:</h5></div>
+          <div class="ui-g-6 ui-rtl" dir="rtl">{{subTotal | currency:'USD':true}}</div>
+          <div class="ui-g-12 ui-inputgroup">
+              <input 
+                pInputText
+                pTooltip="You can only use one coupon at a time" 
+                tooltipPosition="bottom"
+                size="16"
+                type="text"
+                placeholder="Enter coupon"
+                [(ngModel)]="couponCode"
+                name="couponCode"
+              >
+              <button 
+                pButton
+                type="button"
+                label="Submit"
+                class="ui-button-success"
+                (click)="onCouponSubmit()"
+              >
+              </button>
+          </div>
+          <div class="ui-g-6"><h5>Discount:</h5></div>
+          <div class="ui-g-6 ui-rtl" dir="rtl">TODO@Discount</div>
+          <div class="ui-g-12" id="totalFooter">
+              <div class="ui-g-6"><h5 class="h4">Total:</h5></div>
+              <div class="ui-g-6 ui-rtl" dir="rtl"><h5 class="h4">TODO@Total</h5></div>
+          </div>
+      </div>
+      <div class="ui-g-12" id="sendButton">
+        <button 
+          pButton
+          type="button"
+          label="Send"
+          icon="fa-paper-plane-o"
+          class="btn-block"
+          (click)="onSendClick()"
+        >
+        </button>
+      </div>
+    </div>
+  </div>

@@ -8,6 +8,7 @@ import { HttpService } from '../../services/http.service';
 
 import { Client } from '../../models/client';
 import { Product } from '../../models/product';
+import { Order } from '../../models/order';
 import { Admin } from '../../models/admin';
 
 @Component({
@@ -20,11 +21,13 @@ export class DashboardComponent implements OnInit {
   public admin: Admin;
   public client: Client;
 
+  public clientId: string;
 
   public todayDate: Date;
 
   public clients: Array<Client>;
   public products: Array<Product>;
+  public orders: Array<Order>;
 
   public role: String = '';
 
@@ -44,6 +47,9 @@ export class DashboardComponent implements OnInit {
 
     //Get Role
     this.role = this.aRoute.snapshot.params['role'];
+
+    //GetId
+    this.clientId = this.aRoute.snapshot.params['id'];
 
     //Get Stuffs
     if(this.role == 'Admin') {
@@ -65,6 +71,11 @@ export class DashboardComponent implements OnInit {
       );
 
       //Get Orders
+      this.orderService.getOrders().subscribe(
+        (data: any): void => {
+          this.orders = data.orders;
+        }
+      );
 
       //Get Vendor Orders
 
@@ -86,6 +97,16 @@ export class DashboardComponent implements OnInit {
           console.log(err);
         }
       );
+
+      console.log(this.clientId);
+
+      //Get Orders by UserId
+      this.orderService.getOrdersByUserId(this.clientId).subscribe(
+        (data: any): void => {
+          this.orders = data.orders;
+          console.log(this.orders);
+        }
+      );      
     }
   }
 
