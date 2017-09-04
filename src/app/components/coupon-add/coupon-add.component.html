@@ -1,0 +1,114 @@
+<div class="ui-g">
+  <div class="ui-g-6">
+    <button 
+      pButton 
+      type="button" 
+      class="ui-button-info" 
+      label="Back To Coupons" 
+      icon="fa-arrow-circle-o-left" 
+      iconPos="left" 
+      (click)="onClick()"
+    >
+    </button>
+  </div>
+  <div class="ui-g-6">
+    <!--TODO-->
+  </div>
+</div>
+
+<form 
+  [formGroup]="addCouponForm"
+  (ngSubmit)="onAddCouponSubmit(addCouponForm.value)"
+>
+  <p-panel header="Add Coupon">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+      <!-- Coupon Code Input -->
+      <div class="ui-g">
+        <div class="ui-g-2">Code: </div>
+        <div class="ui-g-6">
+          <input 
+            pInputText
+            type="text"
+            formControlName="code"
+            [(ngModel)]="addCouponForm.value.code"
+            uppercase
+          >
+        </div>
+        <div class="ui-g-4">
+          <div 
+            class="ui-messages ui-messages-error ui-corner-all animated bounceInLeft"
+            *ngIf="!addCouponForm.controls['code'].valid && addCouponForm.controls['code'].dirty"
+            >
+            <i class="fa fa-close"></i>
+            <span *ngIf="addCouponForm.controls['code'].errors['required']">This field is required</span>
+          </div>
+        </div>
+      </div> <!--Coupon Code Input ends-->
+      <!-- Coupon Description Input -->
+      <div class="ui-g">
+        <div class="ui-g-2">Description: </div>
+        <div class="ui-g-6">
+          <textarea
+            pInputTextarea
+            [rows]="5" 
+            [cols]="60"
+            autoResize="autoResize"
+            formControlName="description"
+          >
+          </textarea>
+        </div>
+        <div class="ui-g-4"></div>
+      </div> <!--Coupon Desc Ends-->
+      <!-- Coupon Discount Rate Input -->
+      <div class="ui-g">
+        <div class="ui-g-2">Discount Rate</div>
+        <div class="ui-g-6">
+          <input 
+            pInputText
+            pTooltip="Enter Discount Rate in decimal number (E.g: enter 0.4 for 40% discount code)"
+            tooltipPosition="bottom"
+            type="number"
+            formControlName="discountRate"
+          >
+        </div>
+        <div class="ui-g-4">
+          <div 
+            class="ui-messages ui-messages-error ui-corner-all animated bounceInLeft"
+            *ngIf="!addCouponForm.controls['discountRate'].valid && addCouponForm.controls['discountRate'].dirty"
+          >
+            <i class="fa fa-close"></i>
+            <span *ngIf="addCouponForm.controls['discountRate'].errors['required']">This field is required</span>
+          </div>
+        </div>
+      </div> <!--Discount Rate Input ends-->
+      <!-- Coupon Status Input -->
+      <div class="ui-g">
+        <div class="ui-g-2">Status: </div>
+        <div class="ui-g-6">
+          <p-checkbox
+            (onChange)="onStatusChange($event)"
+            formControlName="isActive"
+            binary="true"
+            [label]="couponStatus"
+            id="addCouponChkBox"
+          >
+          </p-checkbox>
+        </div>
+        <div class="ui-g-4"></div>
+      </div> <!--Status ends-->
+      <!-- SUBMIT button -->
+      <div class="ui-g">
+        <div class="ui-g-2"></div>
+        <div class="ui-g-6">
+          <button 
+            pButton
+            type="submit"
+            label="Submit"
+            [disabled]="!addCouponForm.valid"
+          >
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-panel>
+</form>

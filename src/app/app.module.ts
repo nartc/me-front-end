@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FileValueAccessor } from './components/product-add/productAdd.directive';
-
+import { UppercaseDirective } from './components/coupon-add/coupon-add.directive';
 //PrimeNG
 import { FileUploadModule, 
          InputTextModule,
@@ -27,7 +27,8 @@ import { FileUploadModule,
          RadioButtonModule,
          DialogModule,
          DataGridModule,
-         TooltipModule
+         TooltipModule,
+         CheckboxModule
        } from 'primeng/primeng';
        
 //Services
@@ -38,6 +39,7 @@ import { ClientService } from './services/client.service';
 import { ProductService } from './services/product.service';
 import { OrderService } from './services/order.service';
 import { CartService } from './services/cart.service';
+import { CouponService } from './services/coupon.service';
 
 //Components
 import { AppComponent } from './app.component';
@@ -63,6 +65,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CouponComponent } from './components/coupon/coupon.component';
+import { CouponDetailComponent } from './components/coupon-detail/coupon-detail.component';
+import { CouponAddComponent } from './components/coupon-add/coupon-add.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -82,6 +87,9 @@ const appRoutes: Routes = [
   {path: 'client-orders', component: ClientOrdersComponent},
   {path: 'vendor-orders', component: VendorOrdersComponent},
   {path: 'client-order-detail/:id', component: ClientOrderDetailComponent},
+  {path: 'coupons', component: CouponComponent},
+  {path: 'add-coupon', component: CouponAddComponent},
+  {path: 'coupon/:id', component: CouponDetailComponent},
   {path: '**', component: PageNotFoundComponent}
 ]
 
@@ -110,7 +118,11 @@ const appRoutes: Routes = [
     HomeComponent,
     NavbarComponent,
     FooterComponent,
-    FileValueAccessor
+    FileValueAccessor,
+    CouponComponent,
+    CouponDetailComponent,
+    CouponAddComponent,
+    UppercaseDirective
   ],
   imports: [
     BrowserModule,
@@ -138,7 +150,8 @@ const appRoutes: Routes = [
     RadioButtonModule,
     DialogModule,
     DataGridModule,
-    TooltipModule
+    TooltipModule,
+    CheckboxModule
   ],
   providers: [
     ConfirmationService,
@@ -148,7 +161,8 @@ const appRoutes: Routes = [
     ClientService,
     ProductService,
     OrderService,
-    CartService
+    CartService,
+    CouponService
   ],
   bootstrap: [AppComponent]
 })

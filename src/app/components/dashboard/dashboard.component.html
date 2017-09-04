@@ -74,8 +74,8 @@
                 </p-panel>
               </div>
               <div class="ui-g-6">
-                <p-panel header="Orders" [toggleable]="true" styleClass="dashboardPanels">
-                  Total orders: <!--TODO-->
+                <p-panel header="Orders" *ngIf="orders" [toggleable]="true" styleClass="dashboardPanels">
+                  Total orders: {{orders.length}}
                 </p-panel>
               </div>
               <div class="ui-g-6">

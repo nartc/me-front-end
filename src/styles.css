@@ -12,7 +12,8 @@ body{
 }
 
 .loginGrowl.ui-growl,
-.addClientGrowl.ui-growl {
+.addClientGrowl.ui-growl,
+.couponGrowl.ui-growl {
     position: relative;
     width: 100%;
     top: 0;
@@ -40,7 +41,9 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 #viewOrdersButton.ui-button,
 #viewVendorOrdersButton.ui-button,
 #addClientButton.ui-button,
-#addProductButton.ui-button{
+#addProductButton.ui-button,
+#viewCouponsButton.ui-button,
+#addCouponButton.ui-button{
     display: block;
     width: 90%;
     margin: auto;
@@ -54,7 +57,8 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 
 .clientsTable .ui-state-default,
 .productsTable .ui-state-default,
-.clientOrdersTable .ui-state-default{
+.clientOrdersTable .ui-state-default,
+.couponsTable .ui-state-default{
     background: #67b021;
 }
 
@@ -64,16 +68,21 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
     left: 0 !important;
 }
 
-.clientDetailPanel .ui-panel-footer {
+.clientDetailPanel .ui-panel-footer,
+.couponDetailPanel .ui-panel-footer {
     background: #ece8da;
     border: 1px solid #d4ccb0;
     border-radius: 2px;
 }
 
-#loginRadioButton label.ui-radiobutton-label {
+#loginRadioButton label.ui-radiobutton-label,
+#addCouponChkBox label.ui-chkbox-label,
+#couponTableChkBox label.ui-chkbox-label {
     margin-bottom: 0;
 }
 
-#loginRadioButton .ui-state-default{
+#loginRadioButton .ui-state-default,
+#addCouponChkBox .ui-state-default,
+#couponTableChkBox .ui-state-default{
     background: #ece8da;
 }

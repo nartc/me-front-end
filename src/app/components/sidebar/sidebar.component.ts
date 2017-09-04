@@ -28,4 +28,8 @@ export class SidebarComponent implements OnInit {
   onViewVendorOrdersClick() {
     this.router.navigate(['/vendor-orders']);
   }
+
+  onViewCouponsClick() {
+    this.router.navigate(['/coupons']);
+  }
 }

@@ -1,0 +1,64 @@
+<!--Confirmation Dialog -->
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle"></p-confirmDialog>
+
+<!-- Growl -->
+<p-growl [value]="couponMessages" styleClass="couponGrowl"></p-growl>
+<div class="ui-g">
+  <!--MAIN Coupons-->
+  <div class="ui-g-10 ui-sm-12">
+    <div class="ui-g-6">
+      <h2><i class="fa fa-chevron-down"></i> Coupons</h2>
+    </div>
+    <div class="ui-g-6">
+
+    </div>
+    <!--Coupons DATA-->
+    <div class="ui-g-12">
+      <p-dataTable
+        [value]="coupons"
+        [responsive]="true"
+        selectionMode="single" 
+        [(selection)]="selectedCoupon" 
+        (onRowSelect)="onRowSelect($event)"
+        styleClass="couponsTable"
+      >
+        <p-column field="_id" header="ID" [style]="{'width':'25%'}"></p-column>
+        <p-column field="code" header="Code" [style]="{'width':'40%'}"></p-column>
+        <p-column header="Discount Rate" [style]="{'width':'15%'}">
+          <ng-template pTemplate="body" let-col let-coupon="rowData">
+            <span>{{coupon.discountRate | percent:'1.0-3'}}</span>
+          </ng-template>
+        </p-column>
+        <p-column header="Status" [style]="{'width':'20%'}">
+          <ng-template pTemplate="body" let-coupon="rowData" let-i="rowIndex">
+            <p-checkbox
+              [label]="couponStatuses[i]"
+              [(ngModel)]="coupon.isActive"
+              binary="true"
+              (onChange)="onStatusChange($event, coupon, i)"
+              id="couponTableChkBox"
+            >
+            </p-checkbox>
+          </ng-template>
+        </p-column>
+        <p-footer *ngIf="coupons">
+          Total coupons: {{coupons.length}} 
+        </p-footer>
+      </p-dataTable>
+    </div> <!--Clients DATA Ends-->
+  </div>
+  <!--Clients Sidebar-->
+  <div class="ui-g-2 ui-sm-12">
+    <button 
+      pButton 
+      type="button" 
+      class="ui-button-success" 
+      icon="fa-plus" 
+      iconPos="left" 
+      label="Add Coupon" 
+      (click)="onAddCouponClick()" 
+      id="addCouponButton"
+    >
+    </button>
+  </div>
+</div>

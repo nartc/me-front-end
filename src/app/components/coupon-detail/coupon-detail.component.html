@@ -1,0 +1,59 @@
+<!--Confirmation Dialog -->
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle"></p-confirmDialog>
+
+<div class="ui-g">
+  <div class="ui-g-6">
+    <button 
+      pButton 
+      type="button" 
+      class="ui-button-info" 
+      label="Back To Coupons" 
+      icon="fa-arrow-circle-o-left" 
+      iconPos="left" 
+      (click)="onClick()"
+    >
+    </button>
+  </div>
+  <div class="ui-g-6 ui-rtl" dir="rtl">
+    <button 
+      pButton
+      type="button"
+      label="Delete"
+      icon="fa-close"
+      class="ui-button-danger"
+      (click)="onDeleteClick()"
+    >
+    </button>
+  </div>
+</div>
+
+<!-- Coupon Detail -->
+<div *ngIf="coupon">
+  <p-panel styleClass="couponDetailPanel">
+    <p-header>
+      <h3 class="ui-panel-title" style="display:inline-block;margin-top:10px">{{coupon.code}}</h3>
+    </p-header>
+    <div class="ui-g">
+      <div class="ui-g-8 ui-sm-12">
+        <h4 style="margin-top: 10px">Coupon ID: {{id}}</h4>
+      </div>
+      <div class="ui-g-4 ui-sm-12">
+        <h3 class="pull-right">
+          Status: 
+          <span
+            [class.text-danger]="!coupon.isActive"
+            [class.text-success]="coupon.isActive"
+          >
+            {{couponStatus}}
+          </span>
+        </h3>
+      </div>
+    </div>
+    <hr>
+    <ul class="list-group">
+      <li class="list-group-item">Coupon Description: {{coupon.description}}</li>
+      <li class="list-group-item">Discount Rate: {{coupon.discountRate | percent:'1.0-3'}}</li>
+    </ul>
+    <p-footer></p-footer>
+  </p-panel>
+</div>
