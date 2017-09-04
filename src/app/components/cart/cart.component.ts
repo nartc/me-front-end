@@ -3,12 +3,14 @@ import { CartService } from '../../services/cart.service';
 import { OrderService } from '../../services/order.service';
 import { AuthService } from '../../services/auth.service';
 import { ClientService } from '../../services/client.service';
+import { CouponService } from '../../services/coupon.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ConfirmationService } from 'primeng/primeng';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { LocalStorageService } from '../../services/local-storage.service';
 
 import { CartEntry } from '../../models/cart';
+import { Coupon } from '../../models/coupon';
 
 @Component({
   selector: 'app-cart',
@@ -22,8 +24,14 @@ export class CartComponent implements OnInit {
   public id: string;
   public quantity: number;
   public subTotal: number = 0;
+  public discount: number = 0;
+  public cartTotal: number = 0;
   public couponCode: string;
   public userId: string;
+  public coupons: Array<Coupon>;
+  public couponAccepted: boolean = false;
+  public couponAmount: number;
+  public couponSubmitted: boolean = false;
 
   constructor(
     public router: Router,
@@ -34,7 +42,8 @@ export class CartComponent implements OnInit {
     public orderService: OrderService,
     public clientService: ClientService,
     public authService: AuthService,
-    public localStorageService: LocalStorageService
+    public localStorageService: LocalStorageService,
+    public couponService: CouponService
   ) { }
 
   ngOnInit() {
@@ -55,9 +64,16 @@ export class CartComponent implements OnInit {
       .then(
         (carts: any) => {
           this.cart = carts;
-          this.getSubTotal();
+          this.getTotal();
         }
       );
+
+    //Get Coupon Data
+    this.couponService.getCoupons().subscribe(
+      (data: any): void => {
+        this.coupons = data.coupons;
+      }
+    );
   }
 
   onChange(cartLine: CartEntry) {
@@ -73,7 +89,7 @@ export class CartComponent implements OnInit {
     if(newQuantity > 0) {
       cartEntry.quantity = newQuantity;
 
-      this.getSubTotal();
+      this.getTotal();
 
       this.cartService.saveListOfCartEntries(this.cart);
 
@@ -95,10 +111,27 @@ export class CartComponent implements OnInit {
 
     this.cartService.saveListOfCartEntries(this.cart);
 
-    this.getSubTotal();
+    this.getTotal();
   }
 
-  getSubTotal() {
+  onCouponSubmitClick(couponCode: string) {
+    for(var i=0; i <  this.coupons.length; i++) {
+      if(couponCode == this.coupons[i].code) {
+        if(this.coupons[i].isActive) {
+          this.couponAccepted = true;
+          this.couponAmount = this.coupons[i].discountRate;
+        } 
+      } else {
+        this.couponAccepted = false;
+      }
+    }
+    
+    this.couponSubmitted = true;
+
+    this.getTotal();
+  }
+
+  getTotal() {
     let _subTotal = 0;
 
     this.cart.forEach((cartEntry: CartEntry) => {
@@ -111,7 +144,21 @@ export class CartComponent implements OnInit {
     });
 
     this.subTotal = _subTotal;
+    
+    let _discount = 0;
+    let _total = 0;
+    
+    this.cartTotal = this.subTotal;
 
+    if(this.couponAccepted) {
+      _discount = this.couponAmount * this.subTotal;
+      _total = this.subTotal - _discount;
+
+      this.discount = _discount;
+      this.cartTotal = _total;
+    } else {
+      this.discount = 0;
+    }
   }
   
   onSendClick() {
@@ -121,7 +168,7 @@ export class CartComponent implements OnInit {
       this.confirmationService.confirm({
         message: 'Are you sure to confirm this order?',
         accept: () => {
-          this.orderService.saveOrder(this.cart, this.id, this.userId, this.subTotal).subscribe(
+          this.orderService.saveOrder(this.cart, this.id, this.userId, this.cartTotal).subscribe(
             (data: any): void => {
               if(data.success) {
                 this.flashMessagesService.show(
@@ -146,7 +193,7 @@ export class CartComponent implements OnInit {
             }
           );
 
-          this.clientService.updateBalance(this.userId, this.subTotal).subscribe(
+          this.clientService.updateBalance(this.userId, this.cartTotal).subscribe(
             (data: any):void => {
               if(data.success) {
                 console.log(data);

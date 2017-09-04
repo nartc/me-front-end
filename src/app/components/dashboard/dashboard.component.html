@@ -25,7 +25,7 @@
         (onRowSelect)="onRowSelect($event)"
         styleClass="clientOrdersTable"
       >
-        <p-column header="Date" [style]="{'width':'15%'}">
+        <p-column header="Date" [style]="{'width':'17%'}">
           <ng-template let-col let-order="rowData" pTemplate='body'>
             <span>{{order.orderDate | date:'short'}}</span>
           </ng-template>
@@ -36,7 +36,7 @@
             <span>{{order.orderDetails.length}}</span>
           </ng-template>
         </p-column>
-        <p-column header="Total" [style]="{'width':'12%'}">
+        <p-column header="Total" [style]="{'width':'10%'}">
           <ng-template let-col let-order="rowData" pTemplate='body'>
             <span>{{order.orderBalance | currency:'USD':true}}</span>
           </ng-template>

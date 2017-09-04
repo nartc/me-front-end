@@ -1,3 +1,72 @@
-<p>
-  client-orders works!
-</p>
+
+
+<div class="ui-g">
+  <!--MAIN Orders-->
+    <div class="ui-g-6">
+      <h2><i class="fa fa-book"></i> Orders</h2>
+    </div>
+    <div class="ui-g-6">
+    </div>
+    <!--Orders DATA-->
+    <!--Confirmation Dialog -->
+    <p-confirmDialog header="Confirmation" icon="fa fa-question-circle"></p-confirmDialog>
+
+    <!--Confirmation Dialog -->
+    <!-- <p-confirmDialog header="Confirmation" key="paidDialog" icon="fa fa-question-circle"></p-confirmDialog> -->
+
+    <div class="ui-g-12" *ngIf="orders">
+      <p-dataTable
+        [value]="orders"
+        [responsive]="true"
+        selectionMode="single" 
+        [(selection)]="selectedOrder" 
+        (onRowSelect)="onRowSelect($event)"
+        styleClass="ordersTable"
+      >
+        <p-column header="Date" [style]="{'width':'15%'}">
+          <ng-template let-col let-order="rowData" pTemplate='body'>
+            <span>{{order.orderDate | date:'short'}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="orderNumber" header="ID" [style]="{'width':'15%'}"></p-column>
+        <p-column field="userId" header="Client ID" [style]="{'width':'25%'}"></p-column>
+        <p-column header="No. of Products" [style]="{'width':'13%'}">
+          <ng-template pTemplate="body" let-col let-order="rowData">
+            <span>{{order.orderDetails.length}}</span>
+          </ng-template>
+        </p-column>
+        <p-column header="Total" [style]="{'width':'12%'}">
+          <ng-template let-col let-order="rowData" pTemplate='body'>
+            <span>{{order.orderBalance | currency:'USD':true}}</span>
+          </ng-template>
+        </p-column>
+        <p-column header="Del. Status" [style]="{'width':'10%'}">
+          <ng-template pTemplate="body" let-col let-order="rowData" let-i="rowIndex">
+            <p-checkbox
+              [(ngModel)]="order.isDelivered"
+              binary="true"
+              (onChange)="onDeliveredChange(order, i)"
+              [disabled]="deliveredCheck"
+              id="deliveredChkBox"
+            >
+            </p-checkbox>
+          </ng-template>
+        </p-column>
+        <p-column header="Paid Status" [style]="{'width':'10%'}">
+          <ng-template pTemplate="body" let-col let-order="rowData" let-i="rowIndex">
+            <p-checkbox
+              [(ngModel)]="order.isPaid"
+              binary="true"
+              (onChange)="onPaidChange(order, i)"
+              [disabled]="paidCheck"
+              id="paidChkBox"
+            >
+            </p-checkbox>
+          </ng-template>
+        </p-column>
+        <p-footer *ngIf="orders">
+          Total orders: {{orders.length}} 
+        </p-footer>
+      </p-dataTable>
+    </div> <!--Orders DATA Ends-->
+</div>

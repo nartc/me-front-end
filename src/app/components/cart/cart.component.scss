@@ -22,3 +22,9 @@ table tbody input {
 input#quantityInput {
     text-align: center;
 }
+
+::ng-deep .ui-messages {
+    display: block;
+    margin: 0;
+    padding: 3px;
+}

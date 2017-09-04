@@ -58,8 +58,13 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 .clientsTable .ui-state-default,
 .productsTable .ui-state-default,
 .clientOrdersTable .ui-state-default,
-.couponsTable .ui-state-default{
+.couponsTable .ui-state-default,
+.ordersTable .ui-state-default{
     background: #67b021;
+}
+
+.ordersTable tr.ui-widget-content{
+    text-align: center;
 }
 
 .clientDetailSplitBtnMenu.ui-menu,
@@ -77,12 +82,16 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 
 #loginRadioButton label.ui-radiobutton-label,
 #addCouponChkBox label.ui-chkbox-label,
-#couponTableChkBox label.ui-chkbox-label {
+#couponTableChkBox label.ui-chkbox-label,
+#deliveredChkBox label.ui-chkbox-label,
+#paidChkBox label.ui-chkbox-label {
     margin-bottom: 0;
 }
 
 #loginRadioButton .ui-state-default,
 #addCouponChkBox .ui-state-default,
-#couponTableChkBox .ui-state-default{
+#couponTableChkBox .ui-state-default,
+#deliveredChkBox .ui-state-default,
+#paidChkBox .ui-state-default{
     background: #ece8da;
 }

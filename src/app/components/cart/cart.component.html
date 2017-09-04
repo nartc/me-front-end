@@ -104,21 +104,26 @@
                 placeholder="Enter coupon"
                 [(ngModel)]="couponCode"
                 name="couponCode"
+                uppercase
               >
               <button 
                 pButton
                 type="button"
                 label="Submit"
                 class="ui-button-success"
-                (click)="onCouponSubmit()"
+                (click)="onCouponSubmitClick(couponCode)"
               >
               </button>
           </div>
+          <div class="ui-g-12 animated fadeInUp" *ngIf="couponSubmitted">
+            <span *ngIf="couponAccepted" class="ui-messages ui-corner-all ui-messages-success">{{couponCode}} used <i class="fa fa-check-circle-o"></i></span>
+            <span *ngIf="!couponAccepted" class="ui-messages ui-corner-all ui-messages-error">{{couponCode}} is inactive <i class="fa fa-times-circle-o"></i></span>
+          </div>
           <div class="ui-g-6"><h5>Discount:</h5></div>
-          <div class="ui-g-6 ui-rtl" dir="rtl">TODO@Discount</div>
+          <div class="ui-g-6 ui-rtl" dir="rtl">{{discount | currency:'USD':true}}</div>
           <div class="ui-g-12" id="totalFooter">
               <div class="ui-g-6"><h5 class="h4">Total:</h5></div>
-              <div class="ui-g-6 ui-rtl" dir="rtl"><h5 class="h4">TODO@Total</h5></div>
+              <div class="ui-g-6 ui-rtl" dir="rtl"><h5 class="h4">{{cartTotal | currency:'USD':true}}</h5></div>
           </div>
       </div>
       <div class="ui-g-12" id="sendButton">
