@@ -1,5 +1,5 @@
 <div class="ui-g">
-    <div class="ui-g-6">
+    <div class="ui-g-6" *ngIf="role == 'Admin'">
       <button 
         pButton 
         type="button" 
@@ -11,6 +11,67 @@
       >
       </button>
     </div>
+    <div class="ui-g-6" *ngIf="role == 'Client'">
+        <button 
+          pButton 
+          type="button" 
+          class="ui-button-info" 
+          label="Back To Dashboard" 
+          icon="fa-arrow-circle-o-left" 
+          iconPos="left" 
+          (click)="onClick()"
+        >
+        </button>
+      </div>
     <div class="ui-g-6 ui-rtl" dir="rtl">
     </div>
   </div>
+
+  <!-- Order Detail -->
+<div *ngIf="order">
+  <p-panel styleClass="clientOrderDetailPanel">
+    <p-header>
+      <h3 class="ui-panel-title" style="display:inline-block;margin-top:10px">{{order.orderNumber}}</h3>
+    </p-header>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <div class="ui-g-8 ui-sm-12">
+          <h4 style="margin-top: 10px">Total products: {{order.orderDetails.length}}</h4>
+        </div>
+        <div class="ui-g-4 ui-sm-12">
+          <h3 class="pull-right text-muted">
+            Order Balance: {{order.orderBalance | currency:'USD':true}}
+          </h3>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <p-panel header="Order Details">
+          <p-dataTable
+            [value]="order.orderDetails"
+            [responsive]="true"
+            selectionMode="single" 
+            [(selection)]="selectedOrderDetail" 
+            (onRowDblclick)="onRowSelect($event)"
+            styleClass="orderDetailsTable"
+          >
+            <p-column field="product.productNumber" header="Prod. Number"></p-column>
+            <p-column field="product.productDetails.name" header="Prod. Name"></p-column>
+            <p-column header="Prod. Price">
+              <ng-template let-col let-item="rowData"  pTemplate='body'>
+                <span>{{item.product.productSellPrice | currency:'USD':true}}</span>
+              </ng-template>
+            </p-column>
+            <p-column field="quantity" header="Quantity"></p-column>
+            <p-column header="Sub Total">
+              <ng-template let-col let-item="rowData" pTemplate='body'>
+                <span>{{item.product.productSellPrice * item.quantity | currency:'USD':true}}</span>
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </p-panel>
+      </div>
+    </div>
+
+    <p-footer></p-footer>
+  </p-panel>
+</div>

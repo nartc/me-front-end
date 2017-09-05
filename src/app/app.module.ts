@@ -28,7 +28,8 @@ import { FileUploadModule,
          DialogModule,
          DataGridModule,
          TooltipModule,
-         CheckboxModule
+         CheckboxModule,
+         ToggleButtonModule
        } from 'primeng/primeng';
        
 //Services
@@ -86,7 +87,7 @@ const appRoutes: Routes = [
   {path: 'edit-product/:id', component: ProductEditComponent},
   {path: 'client-orders', component: ClientOrdersComponent},
   {path: 'vendor-orders', component: VendorOrdersComponent},
-  {path: 'client-order-detail/:id', component: ClientOrderDetailComponent},
+  {path: 'client-order-detail/:role/:id', component: ClientOrderDetailComponent},
   {path: 'coupons', component: CouponComponent},
   {path: 'add-coupon', component: CouponAddComponent},
   {path: 'coupon/:id', component: CouponDetailComponent},
@@ -151,7 +152,8 @@ const appRoutes: Routes = [
     DialogModule,
     DataGridModule,
     TooltipModule,
-    CheckboxModule
+    CheckboxModule,
+    ToggleButtonModule
   ],
   providers: [
     ConfirmationService,

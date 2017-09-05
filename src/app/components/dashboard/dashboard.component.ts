@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'View details of "'+event.data.orderNumber+'" ?',
       accept: () => {
-        this.router.navigate(['/client-order-detail/'+event.data.orderNumber]);
+        this.router.navigate(['/client-order-detail/'+this.role+'/'+event.data.orderNumber]);
       }
     });
   }

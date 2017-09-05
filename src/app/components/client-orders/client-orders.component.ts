@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderService } from '../../services/order.service';
-import { ConfirmationService } from 'primeng/primeng';
+import { AuthService } from '../../services/auth.service';
+import { Message, ConfirmationService } from 'primeng/primeng';
 
 import { Order } from '../../models/order';
 
@@ -14,16 +15,21 @@ export class ClientOrdersComponent implements OnInit {
   
   public order: Order;
   public orders: Array<Order>;
-  public deliveredCheck: boolean;
-  public paidCheck: boolean;
+  public deliveredCheck: Array<boolean>= [];
+  public paidCheck: Array<boolean> = [];
+
+  public clientOrderMessages: Array<Message>;
 
   public hasRevenue: boolean = false;
   public totalRevenue: number;
 
+  public role: string;
+
   constructor(
     public router: Router,
     public confirmationService: ConfirmationService,
-    public orderService: OrderService
+    public orderService: OrderService,
+    public authService: AuthService
   ) { 
     
   }
@@ -36,6 +42,9 @@ export class ClientOrdersComponent implements OnInit {
         this.getTotal();
       }
     );
+
+    //Get Role
+    this.role = this.authService.currentAdmin.role;
   }
 
   getTotal() {
@@ -57,38 +66,39 @@ export class ClientOrdersComponent implements OnInit {
     console.log(event);
     this.confirmationService.confirm({
       message: 'View details of "'+event.data.orderNumber+'" ?',
+      key: 'onRowSelect',
       accept: () => {
-        this.router.navigate(['/client-order-detail/'+event.data.orderNumber]);
+        this.router.navigate(['/client-order-detail/'+this.role+ '/'+ event.data.orderNumber]);
       }
     });
   }
 
   onDeliveredChange(order, i) {
     console.log('inDelivered');
-    this.confirmationService.confirm({
-      message: 'Sure?',
-      accept: () => {
-        this.deliveredCheck = true;
-      },
-      reject: () => {
-        this.deliveredCheck = false;
-        order.isDelivered = !order.isDelivered;
-      }
-    });
+    
+    setTimeout(()=>{
+      this.deliveredCheck[i] = true;
+      this.clientOrderMessages = [];
+      this.clientOrderMessages.push({
+        severity: 'info',
+        summary: 'Success',
+        detail: 'Order ' + order.orderNumber + ' is set to Delivered'
+      });
+    }, 1000);
   }
 
   onPaidChange(order, i) {
     console.log('inPaid');
-    this.confirmationService.confirm({
-      message: 'Sure?',
-      accept: () => {
-        this.paidCheck = true;
-      },
-      reject: () => {
-        this.paidCheck = false;
-        order.isPaid = !order.isPaid;
-      }
-    });
+
+    setTimeout(()=>{
+      this.paidCheck[i] = true;
+      this.clientOrderMessages = [];
+      this.clientOrderMessages.push({
+        severity: 'info',
+        summary: 'Success',
+        detail: 'Order ' + order.orderNumber + ' is set to Paid'
+      });
+    }, 1000);
   }
 
 }

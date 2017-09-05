@@ -13,7 +13,8 @@ body{
 
 .loginGrowl.ui-growl,
 .addClientGrowl.ui-growl,
-.couponGrowl.ui-growl {
+.couponGrowl.ui-growl,
+.clientOrderGrowl.ui-growl {
     position: relative;
     width: 100%;
     top: 0;
@@ -59,11 +60,13 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 .productsTable .ui-state-default,
 .clientOrdersTable .ui-state-default,
 .couponsTable .ui-state-default,
-.ordersTable .ui-state-default{
+.ordersTable .ui-state-default,
+.orderDetailsTable .ui-state-default{
     background: #67b021;
 }
 
-.ordersTable tr.ui-widget-content{
+.ordersTable tr.ui-widget-content,
+.orderDetailsTable tr.ui-widget-content{
     text-align: center;
 }
 
@@ -74,7 +77,8 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 }
 
 .clientDetailPanel .ui-panel-footer,
-.couponDetailPanel .ui-panel-footer {
+.couponDetailPanel .ui-panel-footer,
+.clientOrderDetailPanel .ui-panel-footer {
     background: #ece8da;
     border: 1px solid #d4ccb0;
     border-radius: 2px;

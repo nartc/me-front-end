@@ -1,3 +1,5 @@
+<p-growl [value]="clientOrderMessages" styleClass="clientOrderGrowl"></p-growl>
+
 <div class="ui-g">
   <!--MAIN Orders-->
     <div class="ui-g-6">
@@ -14,11 +16,10 @@
       </h5>
     </div>
     <!--Orders DATA-->
-    <!--Confirmation Dialog -->
-    <p-confirmDialog header="Confirmation" icon="fa fa-question-circle"></p-confirmDialog>
+
 
     <!--Confirmation Dialog -->
-    <!-- <p-confirmDialog header="Confirmation" key="paidDialog" icon="fa fa-question-circle"></p-confirmDialog> -->
+    <p-confirmDialog header="Confirmation" key="onRowSelect" icon="fa fa-question-circle"></p-confirmDialog>
 
     <div class="ui-g-12" *ngIf="orders">
       <p-dataTable
@@ -26,7 +27,7 @@
         [responsive]="true"
         selectionMode="single" 
         [(selection)]="selectedOrder" 
-        (onRowSelect)="onRowSelect($event)"
+        (onRowDblclick)="onRowSelect($event)"
         styleClass="ordersTable"
       >
         <p-column header="Date" [style]="{'width':'15%'}">
@@ -35,8 +36,8 @@
           </ng-template>
         </p-column>
         <p-column field="orderNumber" header="ID" [style]="{'width':'15%'}"></p-column>
-        <p-column field="userId" header="Client ID" [style]="{'width':'25%'}"></p-column>
-        <p-column header="No. of Products" [style]="{'width':'13%'}">
+        <p-column field="userId" header="Client ID" [style]="{'width':'20%'}"></p-column>
+        <p-column header="No. of Products" [style]="{'width':'12%'}">
           <ng-template pTemplate="body" let-col let-order="rowData">
             <span>{{order.orderDetails.length}}</span>
           </ng-template>
@@ -46,32 +47,32 @@
             <span>{{order.orderBalance | currency:'USD':true}}</span>
           </ng-template>
         </p-column>
-        <p-column header="Del. Status" [style]="{'width':'10%'}">
+        <p-column header="Del. Status" [style]="{'width':'16%'}">
           <ng-template pTemplate="body" let-col let-order="rowData" let-i="rowIndex">
-            <p-checkbox
+            <p-toggleButton
               [(ngModel)]="order.isDelivered"
               pTooltip="Delivery Status: Once checked, you cannot uncheck it"
+              [disabled]="deliveredCheck[i]"
               tooltipPosition="bottom"
-              binary="true"
               (onChange)="onDeliveredChange(order, i)"
-              [disabled]="deliveredCheck"
               id="deliveredChkBox"
+              onLabel="Delivered"
             >
-            </p-checkbox>
+            </p-toggleButton>
           </ng-template>
         </p-column>
         <p-column header="Paid Status" [style]="{'width':'10%'}">
           <ng-template pTemplate="body" let-col let-order="rowData" let-i="rowIndex">
-            <p-checkbox
+            <p-toggleButton
               [(ngModel)]="order.isPaid"
               pTooltip="Paid Status: Once checked, you cannot uncheck it"
               tooltipPosition="bottom"
-              binary="true"
               (onChange)="onPaidChange(order, i)"
-              [disabled]="paidCheck"
+              [disabled]="paidCheck[i]"
               id="paidChkBox"
+              onLabel="Paid"
             >
-            </p-checkbox>
+            </p-toggleButton>
           </ng-template>
         </p-column>
         <p-footer *ngIf="orders">
