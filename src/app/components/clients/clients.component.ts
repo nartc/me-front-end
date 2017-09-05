@@ -13,7 +13,7 @@ import { Client } from '../../models/client';
 })
 export class ClientsComponent implements OnInit {
   
-  public totalRevenue: number;
+  
   public clients: Array<Client>;
   public client: Client;
 
@@ -29,19 +29,9 @@ export class ClientsComponent implements OnInit {
       (data: any): void => {
         if(data.success) {
           this.clients = data.clients;
-          this.getTotal();
         }
       }
     );
-  }
-
-  getTotal() {
-    let total: number = 0;
-    for(let i = 0; i < this.clients.length; i++) {
-      total += this.clients[i].balance;
-    }
-
-    this.totalRevenue = total;
   }
   
   onAddClientClick() {

@@ -17,6 +17,9 @@ export class ClientOrdersComponent implements OnInit {
   public deliveredCheck: boolean;
   public paidCheck: boolean;
 
+  public hasRevenue: boolean = false;
+  public totalRevenue: number;
+
   constructor(
     public router: Router,
     public confirmationService: ConfirmationService,
@@ -30,12 +33,34 @@ export class ClientOrdersComponent implements OnInit {
     this.orderService.getOrders().subscribe(
       (data: any): void => {
         this.orders = data.orders;
+        this.getTotal();
       }
     );
   }
 
+  getTotal() {
+    let total: number = 0;
+    for(let i = 0; i < this.orders.length; i++) {
+      total += this.orders[i].orderBalance;
+    }
+
+    this.totalRevenue = total;
+
+    if(this.totalRevenue > 0) {
+      this.hasRevenue = true;
+    } else {
+      this.hasRevenue = false;
+    }
+  }
+
   onRowSelect(event) {
-    console.log('On Row Select event:', event.data);
+    console.log(event);
+    this.confirmationService.confirm({
+      message: 'View details of "'+event.data.orderNumber+'" ?',
+      accept: () => {
+        this.router.navigate(['/client-order-detail/'+event.data.orderNumber]);
+      }
+    });
   }
 
   onDeliveredChange(order, i) {

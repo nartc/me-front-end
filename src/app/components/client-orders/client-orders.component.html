@@ -1,11 +1,17 @@
-
-
 <div class="ui-g">
   <!--MAIN Orders-->
     <div class="ui-g-6">
       <h2><i class="fa fa-book"></i> Orders</h2>
     </div>
     <div class="ui-g-6">
+      <h5 class="pull-right text-muted">Total Revenue: 
+        <span
+          [class.text-success]="hasRevenue"
+          [class.text-danger]="!hasRevenue"
+        >
+          {{totalRevenue | currency:'USD':true}}
+        </span>
+      </h5>
     </div>
     <!--Orders DATA-->
     <!--Confirmation Dialog -->
@@ -44,6 +50,8 @@
           <ng-template pTemplate="body" let-col let-order="rowData" let-i="rowIndex">
             <p-checkbox
               [(ngModel)]="order.isDelivered"
+              pTooltip="Delivery Status: Once checked, you cannot uncheck it"
+              tooltipPosition="bottom"
               binary="true"
               (onChange)="onDeliveredChange(order, i)"
               [disabled]="deliveredCheck"
@@ -56,6 +64,8 @@
           <ng-template pTemplate="body" let-col let-order="rowData" let-i="rowIndex">
             <p-checkbox
               [(ngModel)]="order.isPaid"
+              pTooltip="Paid Status: Once checked, you cannot uncheck it"
+              tooltipPosition="bottom"
               binary="true"
               (onChange)="onPaidChange(order, i)"
               [disabled]="paidCheck"

@@ -28,4 +28,8 @@ export class OrderService {
     return this.httpService.get('/orders/orders/'+userId, {});
   }
 
+  getOrderByOrderNumber(orderNumber: string): Observable<Order> {
+    return this.httpService.get('/orders/order/'+orderNumber, {});
+  }
+
 }
