@@ -42,10 +42,12 @@ import { OrderService } from './services/order.service';
 import { CartService } from './services/cart.service';
 import { CouponService } from './services/coupon.service';
 import { VendorOrderService } from './services/vendor-order.service';
+import { ActivityService } from './services/activity.service';
 
 //Guards
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { LoginGuard } from './guards/login.guard';
  
 //Components
 import { AppComponent } from './app.component';
@@ -77,8 +79,8 @@ import { CouponAddComponent } from './components/coupon-add/coupon-add.component
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent, canActivate:[LoginGuard]},
+  {path: 'register', component: RegisterComponent, canActivate:[LoginGuard]},
   {path: 'dashboard/:role/:id', component: DashboardComponent, canActivate:[AuthGuard]},
   {path: 'clients', component: ClientsComponent, canActivate:[AuthGuard, AdminGuard]},
   {path: 'client-detail/:id', component: ClientDetailComponent, canActivate:[AuthGuard, AdminGuard]},
@@ -173,7 +175,9 @@ const appRoutes: Routes = [
     CouponService,
     VendorOrderService,
     AuthGuard,
-    AdminGuard
+    AdminGuard,
+    LoginGuard,
+    ActivityService
   ],
   bootstrap: [AppComponent]
 })

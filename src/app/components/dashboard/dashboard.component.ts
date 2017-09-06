@@ -5,6 +5,7 @@ import { ClientService } from '../../services/client.service';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { VendorOrderService } from '../../services/vendor-order.service';
+import { ActivityService } from '../../services/activity.service';
 import { ConfirmationService } from 'primeng/primeng';
 
 import { Client } from '../../models/client';
@@ -38,8 +39,10 @@ export class DashboardComponent implements OnInit {
 
   public totalRevenue: number;
   public totalExpenses: number;
+  public activityId: string;
   public revenueGreaterThanExpenses: boolean;
   public hasExpenses: boolean = true;
+  public payVendor: boolean;
 
   constructor(
     public router: Router,
@@ -49,7 +52,8 @@ export class DashboardComponent implements OnInit {
     public productService: ProductService,
     public orderService: OrderService,
     public vendorOrderService: VendorOrderService,
-    public confirmationService: ConfirmationService
+    public confirmationService: ConfirmationService,
+    public activityService: ActivityService
   ) { }
 
   ngOnInit() {
@@ -82,28 +86,16 @@ export class DashboardComponent implements OnInit {
       );
 
       //Get Orders
-      let _totalRevenue = 0;
       this.orderService.getOrders().subscribe(
         (data: any): void => {
           this.orders = data.orders;
-          for(var i=0; i < this.orders.length; i++) {
-            _totalRevenue += this.orders[i].orderBalance;
-          }
-          this.totalRevenue = _totalRevenue;
-          console.log('Revenue', this.totalRevenue);
         }
       );
 
       //Get Vendor Orders
-      let _totalExpenses = 0;
       this.vendorOrderService.getVendorOrders().subscribe(
         (data: any): void => {
           this.vendorOrders = data.vendorOrders;
-          for(var i=0; i < this.vendorOrders.length; i++) {
-            _totalExpenses += this.vendorOrders[i].vendorOrderBalance;
-          }
-          this.totalExpenses = _totalExpenses;
-          console.log('Expenses', this.totalExpenses);
         }
       );
       //Get Products
@@ -113,21 +105,31 @@ export class DashboardComponent implements OnInit {
         }
       );
 
+      //Get Revenue and Expense
+      this.activityService.getActivities().subscribe(
+        (data: any): void => {
+          this.totalRevenue = data.activities[0].revenue;
+          this.totalExpenses = data.activities[0].expense;
+          this.activityId = data.activities[0]._id;
+          console.log(this.totalRevenue, this.totalExpenses)
+        }
+      );
+
       setTimeout( () => {
-        if(this.totalRevenue > 0 && this.totalExpenses > 0) {
+
+        if(this.totalExpenses > 0) {
           this.hasExpenses = true;
-          if(this.totalRevenue >= this.totalExpenses) {
+          if(this.totalRevenue > this.totalExpenses) {
             this.revenueGreaterThanExpenses = true;
+            this.payVendor = true;
           } else {
             this.revenueGreaterThanExpenses = false;
           }
-        }
-        
-        if(this.totalExpenses > 0) {
-          this.hasExpenses = true;
         } else {
           this.hasExpenses = false;
-        }
+          this.payVendor = false;
+          this.revenueGreaterThanExpenses = true;
+        }     
       }, 1000);
 
     } else if(this.role == 'Client') {
@@ -168,9 +170,29 @@ export class DashboardComponent implements OnInit {
   onPayVendorClick() {
     console.log(this.totalExpenses, this.totalRevenue);
     let _placeholder = 0;
+    let _revenue = -this.totalExpenses;
+    let _expense = -this.totalExpenses;
     _placeholder = this.totalRevenue - this.totalExpenses;
     this.totalRevenue = _placeholder;
     this.totalExpenses = 0;
+    
+    if(this.activityId) {
+      this.activityService.updateRevenue(this.activityId, _revenue).subscribe(
+        (data: any): void => {
+          console.log(data);
+        }
+      );
+
+      this.activityService.updateExpense(this.activityId, _expense).subscribe(
+        (data: any): void => {
+          console.log(data);
+        }
+      );
+    } else {
+      console.log('Activity ID is undefined');
+    }
+
+
   }
 
 }

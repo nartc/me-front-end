@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { ClientService } from '../../services/client.service';
 import { CouponService } from '../../services/coupon.service';
 import { VendorOrderService } from '../../services/vendor-order.service';
+import { ActivityService } from '../../services/activity.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ConfirmationService } from 'primeng/primeng';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -12,6 +13,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 
 import { CartEntry } from '../../models/cart';
 import { Coupon } from '../../models/coupon';
+import { Activity } from '../../models/activity';
 
 @Component({
   selector: 'app-cart',
@@ -33,6 +35,8 @@ export class CartComponent implements OnInit {
   public couponAccepted: boolean = false;
   public couponAmount: number;
   public couponSubmitted: boolean = false;
+  public activity: Activity;
+  public activityId: string;
 
   constructor(
     public router: Router,
@@ -45,7 +49,8 @@ export class CartComponent implements OnInit {
     public authService: AuthService,
     public localStorageService: LocalStorageService,
     public couponService: CouponService,
-    public vendorOrderService: VendorOrderService
+    public vendorOrderService: VendorOrderService,
+    public activityService: ActivityService
   ) { }
 
   ngOnInit() {
@@ -76,6 +81,16 @@ export class CartComponent implements OnInit {
         this.coupons = data.coupons;
       }
     );
+
+    //Get Activity
+    this.activityService.getActivities().subscribe(
+      (data: any): void => {
+        if(data.success) {
+          this.activity = data.activities[0];
+          this.activityId = this.activity._id;
+        }
+      }
+    )
   }
 
   onChange(cartLine: CartEntry) {
@@ -202,6 +217,12 @@ export class CartComponent implements OnInit {
               }
             }
           );
+
+          this.activityService.updateRevenue(this.activityId, this.cartTotal).subscribe(
+            (data: any): void => {
+              console.log(data);
+            }
+          );
         }
       });
     } else if(this.role == 'Admin') {
@@ -230,6 +251,12 @@ export class CartComponent implements OnInit {
                 );
                 this.router.navigate(['/cart/'+this.role+'/'+this.id]);
               }
+            }
+          );
+
+          this.activityService.updateExpense(this.activityId, this.cartTotal).subscribe(
+            (data: any): void => {
+              console.log(data);
             }
           );
         }
