@@ -4,12 +4,14 @@ import { AuthService } from '../../services/auth.service';
 import { ClientService } from '../../services/client.service';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
+import { VendorOrderService } from '../../services/vendor-order.service';
 import { ConfirmationService } from 'primeng/primeng';
 
 import { Client } from '../../models/client';
 import { Product } from '../../models/product';
 import { Order } from '../../models/order';
 import { Admin } from '../../models/admin';
+import { VendorOrder } from '../../models/vendorOrder';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,9 +31,15 @@ export class DashboardComponent implements OnInit {
   public clients: Array<Client>;
   public products: Array<Product>;
   public orders: Array<Order>;
+  public vendorOrders: Array<VendorOrder>;
   public order: Order;
 
   public role: String = '';
+
+  public totalRevenue: number;
+  public totalExpenses: number;
+  public revenueGreaterThanExpenses: boolean;
+  public hasExpenses: boolean = true;
 
   constructor(
     public router: Router,
@@ -40,6 +48,7 @@ export class DashboardComponent implements OnInit {
     public clientService: ClientService,
     public productService: ProductService,
     public orderService: OrderService,
+    public vendorOrderService: VendorOrderService,
     public confirmationService: ConfirmationService
   ) { }
 
@@ -73,14 +82,30 @@ export class DashboardComponent implements OnInit {
       );
 
       //Get Orders
+      let _totalRevenue = 0;
       this.orderService.getOrders().subscribe(
         (data: any): void => {
           this.orders = data.orders;
+          for(var i=0; i < this.orders.length; i++) {
+            _totalRevenue += this.orders[i].orderBalance;
+          }
+          this.totalRevenue = _totalRevenue;
+          console.log('Revenue', this.totalRevenue);
         }
       );
 
       //Get Vendor Orders
-
+      let _totalExpenses = 0;
+      this.vendorOrderService.getVendorOrders().subscribe(
+        (data: any): void => {
+          this.vendorOrders = data.vendorOrders;
+          for(var i=0; i < this.vendorOrders.length; i++) {
+            _totalExpenses += this.vendorOrders[i].vendorOrderBalance;
+          }
+          this.totalExpenses = _totalExpenses;
+          console.log('Expenses', this.totalExpenses);
+        }
+      );
       //Get Products
       this.productService.getProducts().subscribe(
         (data: any): void => {
@@ -88,6 +113,22 @@ export class DashboardComponent implements OnInit {
         }
       );
 
+      setTimeout( () => {
+        if(this.totalRevenue > 0 && this.totalExpenses > 0) {
+          this.hasExpenses = true;
+          if(this.totalRevenue >= this.totalExpenses) {
+            this.revenueGreaterThanExpenses = true;
+          } else {
+            this.revenueGreaterThanExpenses = false;
+          }
+        }
+        
+        if(this.totalExpenses > 0) {
+          this.hasExpenses = true;
+        } else {
+          this.hasExpenses = false;
+        }
+      }, 1000);
 
     } else if(this.role == 'Client') {
       //Get Profile
@@ -122,6 +163,14 @@ export class DashboardComponent implements OnInit {
         this.router.navigate(['/client-order-detail/'+this.role+'/'+event.data.orderNumber]);
       }
     });
+  }
+
+  onPayVendorClick() {
+    console.log(this.totalExpenses, this.totalRevenue);
+    let _placeholder = 0;
+    _placeholder = this.totalRevenue - this.totalExpenses;
+    this.totalRevenue = _placeholder;
+    this.totalExpenses = 0;
   }
 
 }

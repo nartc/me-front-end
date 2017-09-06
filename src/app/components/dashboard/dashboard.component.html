@@ -74,12 +74,28 @@
               </div>
               <div class="ui-g-6">
                 <p-panel header="Orders" *ngIf="orders" [toggleable]="true" styleClass="dashboardPanels">
-                  Total orders: {{orders.length}}
+                  Total orders: {{orders.length}} <br>
+                  <span>Total Revenue: 
+                    <span
+                      [class.text-success]="revenueGreaterThanExpenses"
+                      [class.text-danger]="!revenueGreaterThanExpenses"
+                    >
+                      {{totalRevenue | currency:'USD':true}}
+                    </span>
+                  </span>
                 </p-panel>
               </div>
               <div class="ui-g-6">
-                <p-panel header="Vendor Orders" [toggleable]="true" styleClass="dashboardPanels">
-                  Total vendor orders: <!--TODO-->
+                <p-panel header="Vendor Orders" *ngIf="vendorOrders"[toggleable]="true" styleClass="dashboardPanels">
+                  Total vendor orders: {{vendorOrders.length}} <br>
+                  <span>Total Expenses: 
+                    <span
+                      [class.text-success]="!hasExpenses"
+                      [class.text-danger]="hasExpenses"
+                    >
+                      {{totalExpenses | currency:'USD':true}}
+                    </span>
+                  </span>
                 </p-panel>
               </div>
             </div>
@@ -89,6 +105,18 @@
     <!--Sidebar-->
     <div class="ui-g-2 ui-sm-12">
       <app-sidebar></app-sidebar>
+      <br><br>
+      <button 
+        pButton 
+        type="button"
+        label="Pay Vendor"
+        icon="fa-money"
+        [disabled]="!revenueGreaterThanExpenses"
+        class="ui-messages-info"
+        id="payVendorButton"
+        (click)="onPayVendorClick()"
+      >
+      </button>
     </div>
   </div>
 </div>

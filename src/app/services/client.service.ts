@@ -52,6 +52,10 @@ export class ClientService {
     return this.currentClient = JSON.parse(this.localStorageService.fetchValueFromKey('client'));
   }
 
+  isLoggedIn(): boolean {
+    return tokenNotExpired('id_token');
+  }
+
   logout(): void {
     this.authToken = null;
     this.client = null;

@@ -32,7 +32,9 @@
             <div class="ui-g-10">
               <p>
                 {{line.product.productDetails.name}}<br>
-                <span style="font-style:italic">{{line.product.productNumber}}</span>
+                <span style="font-style:italic">{{line.product.productNumber}}</span> <br>
+                <span class="text-success" *ngIf="role=='Client' && !line.backorder">In Stock</span>
+                <span class="text-danger" *ngIf="role=='Client' && line.backorder">Backorder</span>
               </p>
             </div>
           </div>
@@ -92,9 +94,9 @@
     <div class="ui-g-3 ui-md-3"></div>
     <div class="ui-g-3 ui-md-3 ui-sm-12 ui-xs-12">
       <div class="ui-g-12" id="totalBox">
-          <div class="ui-g-6"><h5>Subtotal:</h5></div>
-          <div class="ui-g-6 ui-rtl" dir="rtl">{{subTotal | currency:'USD':true}}</div>
-          <div class="ui-g-12 ui-inputgroup">
+          <div class="ui-g-6" *ngIf="role == 'Client'"><h5>Subtotal:</h5></div>
+          <div class="ui-g-6 ui-rtl" dir="rtl" *ngIf="role == 'Client'">{{subTotal | currency:'USD':true}}</div>
+          <div class="ui-g-12 ui-inputgroup" *ngIf="role == 'Client'">
               <input 
                 pInputText
                 pTooltip="You can only use one coupon at a time" 
@@ -119,8 +121,8 @@
             <span *ngIf="couponAccepted" class="ui-messages ui-corner-all ui-messages-success">{{couponCode}} used <i class="fa fa-check-circle-o"></i></span>
             <span *ngIf="!couponAccepted" class="ui-messages ui-corner-all ui-messages-error">{{couponCode}} is inactive <i class="fa fa-times-circle-o"></i></span>
           </div>
-          <div class="ui-g-6"><h5>Discount:</h5></div>
-          <div class="ui-g-6 ui-rtl" dir="rtl">{{discount | currency:'USD':true}}</div>
+          <div class="ui-g-6" *ngIf="role == 'Client'"><h5>Discount:</h5></div>
+          <div class="ui-g-6 ui-rtl" dir="rtl" *ngIf="role == 'Client'">{{discount | currency:'USD':true}}</div>
           <div class="ui-g-12" id="totalFooter">
               <div class="ui-g-6"><h5 class="h4">Total:</h5></div>
               <div class="ui-g-6 ui-rtl" dir="rtl"><h5 class="h4">{{cartTotal | currency:'USD':true}}</h5></div>

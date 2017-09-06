@@ -4,6 +4,7 @@ import { OrderService } from '../../services/order.service';
 import { AuthService } from '../../services/auth.service';
 import { ClientService } from '../../services/client.service';
 import { CouponService } from '../../services/coupon.service';
+import { VendorOrderService } from '../../services/vendor-order.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ConfirmationService } from 'primeng/primeng';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -43,7 +44,8 @@ export class CartComponent implements OnInit {
     public clientService: ClientService,
     public authService: AuthService,
     public localStorageService: LocalStorageService,
-    public couponService: CouponService
+    public couponService: CouponService,
+    public vendorOrderService: VendorOrderService
   ) { }
 
   ngOnInit() {
@@ -203,7 +205,35 @@ export class CartComponent implements OnInit {
         }
       });
     } else if(this.role == 'Admin') {
-      // TODO Admin Vendor Order
+      this.confirmationService.confirm({
+        message: 'Are you confirming this order?',
+        accept: () => {
+          this.vendorOrderService.saveVendorOrder(this.cart, this.id, this.cartTotal).subscribe(
+            (data: any): void => {
+              if(data.success) {
+                this.flashMessagesService.show(
+                  'New Vendor Order Placed',
+                  {
+                    cssClass: 'ui-messages-info',
+                    timeout: 3000
+                  }
+                );
+                this.localStorageService.deleteValueWithKey('cart');
+                this.router.navigate(['/dashboard/'+this.role+'/'+this.userId]);
+              } else {
+                this.flashMessagesService.show(
+                  'Failed to place vendor order',
+                  {
+                    cssClass: 'ui-messages-info',
+                    timeout: 3000
+                  }
+                );
+                this.router.navigate(['/cart/'+this.role+'/'+this.id]);
+              }
+            }
+          );
+        }
+      });
     }
   }
 

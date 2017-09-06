@@ -87,6 +87,7 @@ export class ProductSaleComponent implements OnInit {
 
   genIdString() {
     const identifier = "MEC";
+    const identifierVendor = "VEN"
     const possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     var Id = '';
@@ -94,8 +95,12 @@ export class ProductSaleComponent implements OnInit {
     for(var i = 0; i < 9; i++) {
       Id += possibleChars.charAt(Math.random() * possibleChars.length);
     };
-
-    Id = identifier + "-" + Id;
+    
+    if(this.role == 'Client') {
+      Id = identifier + "-" + Id;
+    } else if(this.role == 'Admin') {
+      Id = identifierVendor + "-" + Id;
+    }    
 
     return Id;
   }

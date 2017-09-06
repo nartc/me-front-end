@@ -126,7 +126,6 @@
                                     placeholder="0"
                                     size="10"
                                     [min]="0"
-                                    [max]="product.inStock"
                                     [(ngModel)]="quantitySelect[i]"
                                     name="quantitySelect"
                                 >
@@ -150,7 +149,9 @@
                                     pButton
                                     type="button"
                                     label="Add to Cart"
-                                    icon="fa-cart-plus"                             
+                                    icon="fa-cart-plus" 
+                                    data-toggle="modal" 
+                                    data-target="#reviewModal"                            
                                     (click)="addToCartClick(product, quantitySelect[i])"
                                 >
                                 </button>
@@ -231,7 +232,8 @@
                                     <td>{{item.product.productDetails.name}}</td>
                                     <td>{{item.product.productDetails.unit}}</td>
                                     <td>x{{item.quantity}}</td>
-                                    <td>{{item.quantity * item.product.productSellPrice | currency:'USD':true}}</td>
+                                    <span *ngIf="role == 'Client'"><td>{{item.quantity * item.product.productSellPrice | currency:'USD':true}}</td></span>
+                                    <span *ngIf="role == 'Admin'"><td>{{item.quantity * item.product.productBuyPrice | currency:'USD':true}}</td></span>
                                 </tr>
                             </tbody>
                         </table>

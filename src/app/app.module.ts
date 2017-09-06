@@ -41,7 +41,12 @@ import { ProductService } from './services/product.service';
 import { OrderService } from './services/order.service';
 import { CartService } from './services/cart.service';
 import { CouponService } from './services/coupon.service';
+import { VendorOrderService } from './services/vendor-order.service';
 
+//Guards
+import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
+ 
 //Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -74,23 +79,24 @@ const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'dashboard/:role/:id', component: DashboardComponent},
-  {path: 'clients', component: ClientsComponent},
-  {path: 'client-detail/:id', component: ClientDetailComponent},
-  {path: 'add-client', component: ClientAddComponent},
-  {path: 'edit-client/:id', component: ClientEditComponent},
-  {path: 'cart/:role/:id', component: CartComponent},
-  {path: 'sale/:role', component: ProductSaleComponent},
-  {path: 'products', component: ProductsComponent},
-  {path: 'product-detail/:id', component: ProductDetailComponent},
-  {path: 'add-product', component: ProductAddComponent},
-  {path: 'edit-product/:id', component: ProductEditComponent},
-  {path: 'client-orders', component: ClientOrdersComponent},
-  {path: 'vendor-orders', component: VendorOrdersComponent},
-  {path: 'client-order-detail/:role/:id', component: ClientOrderDetailComponent},
-  {path: 'coupons', component: CouponComponent},
-  {path: 'add-coupon', component: CouponAddComponent},
-  {path: 'coupon/:id', component: CouponDetailComponent},
+  {path: 'dashboard/:role/:id', component: DashboardComponent, canActivate:[AuthGuard]},
+  {path: 'clients', component: ClientsComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'client-detail/:id', component: ClientDetailComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'add-client', component: ClientAddComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'edit-client/:id', component: ClientEditComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'cart/:role/:id', component: CartComponent, canActivate:[AuthGuard]},
+  {path: 'sale/:role', component: ProductSaleComponent, canActivate:[AuthGuard]},
+  {path: 'products', component: ProductsComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'product-detail/:id', component: ProductDetailComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'add-product', component: ProductAddComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'edit-product/:id', component: ProductEditComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'client-orders', component: ClientOrdersComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'vendor-orders', component: VendorOrdersComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'vendor-order-detail/:id', component: VendorOrderDetailComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'client-order-detail/:role/:id', component: ClientOrderDetailComponent, canActivate:[AuthGuard]},
+  {path: 'coupons', component: CouponComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'add-coupon', component: CouponAddComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'coupon/:id', component: CouponDetailComponent, canActivate:[AuthGuard, AdminGuard]},
   {path: '**', component: PageNotFoundComponent}
 ]
 
@@ -164,7 +170,10 @@ const appRoutes: Routes = [
     ProductService,
     OrderService,
     CartService,
-    CouponService
+    CouponService,
+    VendorOrderService,
+    AuthGuard,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })

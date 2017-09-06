@@ -1,3 +1,68 @@
-<p>
-  vendor-orders works!
-</p>
+<p-growl [value]="vendorOrderMessages" styleClass="vendorOrderGrowl"></p-growl>
+
+<div class="ui-g">
+  <!--Vendor Orders-->
+    <div class="ui-g-6">
+      <h2><i class="fa fa-refresh"></i> Vendor Orders</h2>
+    </div>
+    <div class="ui-g-6">
+      <h5 class="pull-right text-muted">Total Expenses: 
+        <span
+          [class.text-success]="!hasExpense"
+          [class.text-danger]="hasExpense"
+        >
+          {{totalExpenses | currency:'USD':true}}
+        </span>
+      </h5>
+    </div>
+    <!--Vendor Orders DATA-->
+
+
+    <!--Confirmation Dialog -->
+    <p-confirmDialog header="Confirmation" key="onRowSelect" icon="fa fa-question-circle"></p-confirmDialog>
+
+    <div class="ui-g-12" *ngIf="vendorOrders">
+      <p-dataTable
+        [value]="vendorOrders"
+        [responsive]="true"
+        selectionMode="single" 
+        [(selection)]="selectedVendorOrder" 
+        (onRowDblclick)="onRowSelect($event)"
+        styleClass="vendorOrdersTable"
+      >
+        <p-column header="Date" [style]="{'width':'15%'}">
+          <ng-template let-col let-vorder="rowData" pTemplate='body'>
+            <span>{{vorder.vendorOrderDate | date:'short'}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="vendorOrderNumber" header="ID" [style]="{'width':'15%'}"></p-column>
+        <p-column header="No. of Products" [style]="{'width':'12%'}">
+          <ng-template pTemplate="body" let-col let-vorder="rowData">
+            <span>{{vorder.vendorOrderDetails.length}}</span>
+          </ng-template>
+        </p-column>
+        <p-column header="Total" [style]="{'width':'12%'}">
+          <ng-template let-col let-vorder="rowData" pTemplate='body'>
+            <span>{{vorder.vendorOrderBalance | currency:'USD':true}}</span>
+          </ng-template>
+        </p-column>
+        <p-column header="Rec. Status" [style]="{'width':'12%'}">
+          <ng-template pTemplate="body" let-col let-vorder="rowData" let-i="rowIndex">
+            <p-toggleButton
+              [(ngModel)]="vorder.isReceived"
+              pTooltip="Receipt Status: Once checked, you cannot uncheck it"
+              [disabled]="receivedCheck[i]"
+              tooltipPosition="bottom"
+              (onChange)="onReceivedChange(vorder, i)"
+              onLabel="Received"
+              styleClass="vendorOrdersReceivedToggleButton"
+            >
+            </p-toggleButton>
+          </ng-template>
+        </p-column>
+        <p-footer *ngIf="vendorOrders">
+          Total vendor orders: {{vendorOrders.length}} 
+        </p-footer>
+      </p-dataTable>
+    </div> <!--Vendor Orders DATA Ends-->
+</div>

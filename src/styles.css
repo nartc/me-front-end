@@ -14,7 +14,8 @@ body{
 .loginGrowl.ui-growl,
 .addClientGrowl.ui-growl,
 .couponGrowl.ui-growl,
-.clientOrderGrowl.ui-growl {
+.clientOrderGrowl.ui-growl,
+.vendorOrderGrowl.ui-growl {
     position: relative;
     width: 100%;
     top: 0;
@@ -51,6 +52,12 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
     margin-bottom: 10px;
 }
 
+#payVendorButton.ui-button{
+    display: block;
+    margin-left: 10px;
+    width: 90%;
+}
+
 .dashboardPanels .ui-widget-header a{
     color: white;
     background: #5cb85c;
@@ -61,13 +68,17 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 .clientOrdersTable .ui-state-default,
 .couponsTable .ui-state-default,
 .ordersTable .ui-state-default,
-.orderDetailsTable .ui-state-default{
+.orderDetailsTable .ui-state-default,
+.vendorOrdersTable .ui-state-default,
+.vendorOrderDetailsTable .ui-state-default{
     background: #67b021;
 }
 
 .ordersTable tr.ui-widget-content,
 .orderDetailsTable tr.ui-widget-content,
-.couponsTable tr.ui-widget-content{
+.couponsTable tr.ui-widget-content,
+.vendorOrdersTable tr.ui-widget-content,
+.vendorOrderDetailsTable tr.ui-widget-content{
     text-align: center;
 }
 
@@ -79,7 +90,8 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 
 .clientDetailPanel .ui-panel-footer,
 .couponDetailPanel .ui-panel-footer,
-.clientOrderDetailPanel .ui-panel-footer {
+.clientOrderDetailPanel .ui-panel-footer,
+.vendorOrderDetailPanel .ui-panel-footer {
     background: #ece8da;
     border: 1px solid #d4ccb0;
     border-radius: 2px;
@@ -87,21 +99,20 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 
 #loginRadioButton label.ui-radiobutton-label,
 #addCouponChkBox label.ui-chkbox-label,
-#couponTableChkBox label.ui-chkbox-label,
-#deliveredChkBox label.ui-chkbox-label,
-#paidChkBox label.ui-chkbox-label {
+#couponTableChkBox label.ui-chkbox-label {
     margin-bottom: 0;
 }
 
 #loginRadioButton .ui-state-default,
-#addCouponChkBox .ui-state-default,
-#couponTableChkBox .ui-state-default{
+#addCouponChkBox .ui-state-default{
     background: #ece8da;
 }
 
 .couponsTable .couponToggleButton.ui-state-active,
 .ordersTable .ordersDeliveredToggleButton.ui-state-active,
-.ordersTable .ordersPaidToggleButton.ui-state-active {
+.ordersTable .ordersPaidToggleButton.ui-state-active,
+.vendorOrdersTable .vendorOrdersReceivedToggleButton.ui-state-active,
+.vendorOrdersTable .vendorOrdersPaidToggleButton.ui-state-active {
     background: #67b021 !important;
     border: 1px solid #569A14 !important;
     color: #fff;
@@ -109,7 +120,9 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 
 .couponsTable .couponToggleButton.ui-state-default,
 .ordersTable .ordersDeliveredToggleButton.ui-state-default,
-.ordersTable .ordersPaidToggleButton.ui-state-default{
+.ordersTable .ordersPaidToggleButton.ui-state-default,
+.vendorOrdersTable .vendorOrdersReceivedToggleButton.ui-state-default,
+.vendorOrdersTable .vendorOrdersPaidToggleButton.ui-state-default{
     background: #F33434;
     border: 1px solid red;
 }
