@@ -14,10 +14,7 @@ export class CouponComponent implements OnInit {
   
   public coupons: Array<Coupon>;
   public coupon: Coupon;
-
-  public couponStatuses: Array<string> = [];
-  public couponStatus: string;
-
+  
   public couponMessages: Array<Message>;
 
   constructor(
@@ -31,15 +28,6 @@ export class CouponComponent implements OnInit {
       (data: any): void => {
         if(data.success) {
           this.coupons = data.coupons;
-          this.coupons.forEach(coupon => {
-            if(coupon.isActive) {
-              this.couponStatus = 'Active'
-            } else {
-              this.couponStatus = 'Inactive'
-            }
-            this.couponStatuses.push(this.couponStatus);
-            console.log(this.couponStatuses);
-          });
         }
       }
     ); 
@@ -63,7 +51,6 @@ export class CouponComponent implements OnInit {
           this.couponService.updateCouponStatus(coupon._id, coupon).subscribe(
             (data: any): void => {
               if(data.success) {
-                this.couponStatuses[i] = 'Active'
                 this.couponMessages = [];
                 this.couponMessages.push({
                   severity: 'success',
@@ -86,7 +73,6 @@ export class CouponComponent implements OnInit {
           this.couponService.updateCouponStatus(coupon._id, coupon).subscribe(
             (data: any): void => {
               if(data.success) {
-                this.couponStatuses[i] = 'Inactive'
                 this.couponMessages = [];
                 this.couponMessages.push({
                   severity: 'success',

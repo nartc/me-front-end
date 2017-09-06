@@ -36,4 +36,10 @@ export class ProductService {
     return this.httpService.put('/products/edit/'+id, product, {'Content-Type':'application/json'});
   }
 
+  updateProductInstock(id: string, quantity: number): Observable<any> {
+    console.log(id, quantity);
+    let body = {quantity}
+    return this.httpService.put('/products/editInstock/'+id, body, {'Content-Type':'application/json'});
+  }
+
 }

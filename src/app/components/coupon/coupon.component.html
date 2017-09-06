@@ -19,26 +19,26 @@
         [responsive]="true"
         selectionMode="single" 
         [(selection)]="selectedCoupon" 
-        (onRowSelect)="onRowSelect($event)"
+        (onRowDblclick)="onRowSelect($event)"
         styleClass="couponsTable"
       >
         <p-column field="_id" header="ID" [style]="{'width':'25%'}"></p-column>
-        <p-column field="code" header="Code" [style]="{'width':'40%'}"></p-column>
+        <p-column field="code" header="Code" [style]="{'width':'30%'}"></p-column>
         <p-column header="Discount Rate" [style]="{'width':'15%'}">
           <ng-template pTemplate="body" let-col let-coupon="rowData">
             <span>{{coupon.discountRate | percent:'1.0-3'}}</span>
           </ng-template>
         </p-column>
-        <p-column header="Status" [style]="{'width':'20%'}">
+        <p-column header="Status" [style]="{'width':'30%'}">
           <ng-template pTemplate="body" let-coupon="rowData" let-i="rowIndex">
-            <p-checkbox
-              [label]="couponStatuses[i]"
+            <p-toggleButton
               [(ngModel)]="coupon.isActive"
-              binary="true"
+              onLabel="Active" 
+              offLabel="Inactive"
+              styleClass="couponToggleButton"
               (onChange)="onStatusChange($event, coupon, i)"
-              id="couponTableChkBox"
             >
-            </p-checkbox>
+            </p-toggleButton>
           </ng-template>
         </p-column>
         <p-footer *ngIf="coupons">

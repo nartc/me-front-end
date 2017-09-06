@@ -32,4 +32,14 @@ export class OrderService {
     return this.httpService.get('/orders/order/'+orderNumber, {});
   }
 
+  updateDeliveredStatus(id: string, deliveredStatus: boolean): Observable<any> {
+    let body = {deliveredStatus};
+    return this.httpService.put('/orders/updateDelivery/'+id, body, {'Content-Type':'application/json'});
+  }
+
+  updatePaidStatus(id: string, paidStatus: boolean): Observable<any> {
+    let body = {paidStatus};
+    return this.httpService.put('/orders/updatePayment/'+id, body, {'Content-Type':'application/json'});
+  }
+
 }

@@ -57,6 +57,7 @@
               (onChange)="onDeliveredChange(order, i)"
               id="deliveredChkBox"
               onLabel="Delivered"
+              styleClass="ordersDeliveredToggleButton"
             >
             </p-toggleButton>
           </ng-template>
@@ -69,8 +70,8 @@
               tooltipPosition="bottom"
               (onChange)="onPaidChange(order, i)"
               [disabled]="paidCheck[i]"
-              id="paidChkBox"
               onLabel="Paid"
+              styleClass="ordersPaidToggleButton"
             >
             </p-toggleButton>
           </ng-template>

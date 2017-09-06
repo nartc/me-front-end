@@ -1,0 +1,16 @@
+$componentBg: #f5f3e5;
+$headerFooterColor: #ece8da;
+$borderColor: #e4dfce;
+
+#modalContent {
+    background: $componentBg;
+}
+
+#modalHeader, #modalFooter {
+    background: $headerFooterColor;
+    border: 1px solid $borderColor;
+}
+
+modal hr{
+    color: $headerFooterColor;
+}

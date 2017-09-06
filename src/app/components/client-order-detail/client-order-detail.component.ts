@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { OrderService } from '../../services/order.service';
 import { ClientService } from '../../services/client.service';
+import { ConfirmationService } from 'primeng/primeng';
 
 import { Order } from '../../models/order';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-client-order-detail',
@@ -15,6 +17,7 @@ export class ClientOrderDetailComponent implements OnInit {
   public order: Order;
   public orderNumber: string;
   public clientId: string;
+  public product: Product;
 
   public role: string;
 
@@ -22,7 +25,8 @@ export class ClientOrderDetailComponent implements OnInit {
     public router: Router,
     public aRoute: ActivatedRoute,
     public orderService: OrderService,
-    public clientService: ClientService
+    public clientService: ClientService,
+    public confirmationService: ConfirmationService
   ) { }
 
   ngOnInit() {
@@ -52,6 +56,17 @@ export class ClientOrderDetailComponent implements OnInit {
       this.router.navigate(['/dashboard/'+this.role+'/'+this.clientId]);
     }
     
+  }
+
+  onShowDetailsClick(item) {
+    console.log(item);
+    this.product = item.product;
+  }
+
+  onEditProductClick() {
+    setTimeout(() => {
+      this.router.navigate(['/edit-product/'+this.product.productNumber]);
+    }, 1000)
   }
 
 }

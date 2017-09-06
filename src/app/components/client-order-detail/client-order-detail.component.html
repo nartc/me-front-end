@@ -49,22 +49,33 @@
           <p-dataTable
             [value]="order.orderDetails"
             [responsive]="true"
-            selectionMode="single" 
-            [(selection)]="selectedOrderDetail" 
-            (onRowDblclick)="onRowSelect($event)"
             styleClass="orderDetailsTable"
           >
-            <p-column field="product.productNumber" header="Prod. Number"></p-column>
+            <p-column field="product.productNumber" header="Prod. Number" [style]="{'width':'12%'}"></p-column>
             <p-column field="product.productDetails.name" header="Prod. Name"></p-column>
-            <p-column header="Prod. Price">
+            <p-column header="Prod. Price" [style]="{'width':'12%'}">
               <ng-template let-col let-item="rowData"  pTemplate='body'>
                 <span>{{item.product.productSellPrice | currency:'USD':true}}</span>
               </ng-template>
             </p-column>
-            <p-column field="quantity" header="Quantity"></p-column>
-            <p-column header="Sub Total">
-              <ng-template let-col let-item="rowData" pTemplate='body'>
+            <p-column field="quantity" header="Quantity" [style]="{'width':'10%'}"></p-column>
+            <p-column header="Sub Total" [style]="{'width':'12%'}">
+              <ng-template let-col let-item="rowData" pTemplate='body' >
                 <span>{{item.product.productSellPrice * item.quantity | currency:'USD':true}}</span>
+              </ng-template>
+            </p-column>
+            <p-column header="Show Details" [style]="{'width':'12%'}">
+              <ng-template pTemplate="body" let-col let-item="rowData">
+                <button 
+                  pButton
+                  type="button"
+                  icon="fa-search"
+                  class="ui-button-secondary"
+                  data-toggle="modal" 
+                  data-target="#detailModal"
+                  (click)="onShowDetailsClick(item)"
+                >
+                </button>
               </ng-template>
             </p-column>
           </p-dataTable>
@@ -74,4 +85,55 @@
 
     <p-footer></p-footer>
   </p-panel>
+</div>
+
+<!-- Product Detail Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" id="modalContent">
+      <div class="modal-header" id="modalHeader">
+        <h5 class="modal-title" id="exampleModalLabel">Product Detail</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div *ngIf="product" class="ui-grid ui-grid-responsive ui-grid-pad">
+                <div class="ui-g">
+                    <p-panel>
+                      <p-header>
+                        <h4 class="ui-panel-title" style="display:inline-block;margin-top:10px">{{product.productNumber}}</h4>
+                      </p-header>
+                      <div class="ui-g">
+                        <div class="ui-g-6"><h4 style="margin-top: 10px">{{product.productDetails.name}}</h4></div>
+                        <div class="ui-g-6 ui-rtl text-muted" dir="rtl" *ngIf="role == 'Admin'">
+                          <h3>Unit Price: {{product.productSellPrice | currency:'USD':true}}</h3>
+                          <h3>Vendor Price: {{product.productBuyPrice | currency:'USD':true}}</h3>
+                        </div>
+                        <div class="ui-g-12" style="text-align: center;"><img src="{{product.productDetails.image}}" width="400px" height="400px"></div>
+                        <div class="ui-g-12">
+                          <p>{{product.productDetails.description}}</p>
+                        </div>
+                      </div>
+                    </p-panel>
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer" id="modalFooter">
+        <button pButton type="button" label="Close" icon="fa-close" class="ui-button-secondary" data-dismiss="modal"></button>
+        <span *ngIf="role == 'Admin'">
+          <button 
+            pButton 
+            data-dismiss="modal"
+            type="button" 
+            label="Edit Product Detail" 
+            icon="fa-pencil" 
+            class="ui-button-primary"
+            (click)="onEditProductClick()"
+          >    
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
 </div>

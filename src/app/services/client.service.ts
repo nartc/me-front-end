@@ -78,8 +78,6 @@ export class ClientService {
   }
 
   updateBalance(id: string, balance: number): Observable<any>{
-    console.log(id);
-    console.log(balance);
     let body = {balance};
     return this.httpService.put('/clients/balanceUpdate/'+id, body, {'Content-Type':'application/json'});
   }
