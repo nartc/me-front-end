@@ -1,5 +1,15 @@
 <app-navbar></app-navbar>
 <div class="container">
+    <ng-progress
+    [positionUsing]="'marginLeft'" 
+    [minimum]="0.15" 
+    [maximum]="1"
+    [direction]="'leftToRightIncreased'"
+    [color]="'#67b021'" 
+    [trickleSpeed]="500"
+    [thick]="true" 
+    [ease]="'easeInSine'"
+  ></ng-progress>
   <flash-messages></flash-messages>
   <router-outlet></router-outlet>
 </div>

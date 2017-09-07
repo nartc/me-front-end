@@ -4,10 +4,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { BrowserXhr, HttpModule } from '@angular/http';
+import { NgProgressModule, NgProgressBrowserXhr } from 'ngx-progressbar';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FileValueAccessor } from './components/product-add/productAdd.directive';
 import { UppercaseDirective } from './components/coupon-add/coupon-add.directive';
+
 //PrimeNG
 import { FileUploadModule, 
          InputTextModule,
@@ -161,7 +163,8 @@ const appRoutes: Routes = [
     DataGridModule,
     TooltipModule,
     CheckboxModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    NgProgressModule
   ],
   providers: [
     ConfirmationService,
@@ -177,7 +180,8 @@ const appRoutes: Routes = [
     AuthGuard,
     AdminGuard,
     LoginGuard,
-    ActivityService
+    ActivityService,
+    {provide: BrowserXhr, useClass: NgProgressBrowserXhr}
   ],
   bootstrap: [AppComponent]
 })
