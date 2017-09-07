@@ -173,26 +173,29 @@ export class DashboardComponent implements OnInit {
     let _revenue = -this.totalExpenses;
     let _expense = -this.totalExpenses;
     _placeholder = this.totalRevenue - this.totalExpenses;
-    this.totalRevenue = _placeholder;
-    this.totalExpenses = 0;
+    this.confirmationService.confirm({
+      message: 'Confirm payment to vendor?',
+      accept: () => {
+        this.totalRevenue = _placeholder;
+        this.totalExpenses = 0;
+        
+        if(this.activityId) {
+          this.activityService.updateRevenue(this.activityId, _revenue).subscribe(
+            (data: any): void => {
+              console.log(data);
+            }
+          );
     
-    if(this.activityId) {
-      this.activityService.updateRevenue(this.activityId, _revenue).subscribe(
-        (data: any): void => {
-          console.log(data);
+          this.activityService.updateExpense(this.activityId, _expense).subscribe(
+            (data: any): void => {
+              console.log(data);
+            }
+          );
+        } else {
+          console.log('Activity ID is undefined');
         }
-      );
-
-      this.activityService.updateExpense(this.activityId, _expense).subscribe(
-        (data: any): void => {
-          console.log(data);
-        }
-      );
-    } else {
-      console.log('Activity ID is undefined');
-    }
-
-
+      }
+    });
   }
 
 }
