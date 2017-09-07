@@ -2,7 +2,7 @@ $nav-bg: #343a40;
 $primary-color: #67b021;
 
 .footer{
-    position: absolute;
+    position: fixed;
     width: 100%;
     bottom: 0;
     opacity: 0.8;
@@ -12,7 +12,7 @@ $primary-color: #67b021;
 }
 
 .push{
-    height: 120px;
+    height: 300px;
 }
 
 .container{

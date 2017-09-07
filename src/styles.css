@@ -1,12 +1,13 @@
-html {
-    position: relative;
-    min-height: 100%;
+html, body {
+    /* position: relative;
+    min-height: 100%; */
+    height: 100%;
 }
 
 body{
-    /* display: flex;
-    flex-direction: column; */
-    margin-bottom: 150px !important;
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 150px !important; */
 }
 
 .loginPanel .ui-panel-titlebar {
@@ -52,6 +53,14 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
     width: 90%;
     margin: auto;
     margin-bottom: 10px;
+}
+
+#homeButton.ui-button{
+    padding: 5px 15px;
+}
+
+#homeButton.ui-button .ui-button-text{
+    font-size: larger;
 }
 
 #payVendorButton.ui-button{

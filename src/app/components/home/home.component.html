@@ -1,3 +1,69 @@
-<p>
-  home works!
-</p>
+<div class="wrapper">
+  <header id="home-section">
+    <div class="dark-overlay">
+      <div class="home-inner">
+        <div class="ui-g-12">
+          <h1 class="display-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, ipsum.</h1>
+        </div>
+        <div class="ui-g-12" *ngIf="!authService.isLoggedIn() || !clientService.isLoggedIn()" id="btnDiv">
+          <button 
+            pButton
+            type="button"
+            label="SIGN UP"
+            id="homeButton"
+            (click)="onClick()"
+          >
+          </button>
+        </div>    
+      </div>
+    </div>
+  </header>
+
+  <section class="section section-primary">
+    <h2>Section One</h2>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab ut delectus ad error, eos a reiciendis soluta ex dolorum voluptatem assumenda aliquid in recusandae aut illum nihil id consequatur ullam deleniti cumque minima itaque fugit? Sit distinctio unde, a repellat hic perspiciatis veniam, nulla autem doloremque laboriosam debitis ex dicta soluta, quo quibusdam eius ad ut deleniti sed laudantium? Asperiores beatae a impedit culpa sapiente deserunt officia voluptate at unde. Nam, impedit, quo nobis repellat voluptates tenetur amet temporibus rem, nemo vitae optio id adipisci quis est reprehenderit! Blanditiis eaque itaque accusantium eos impedit nihil, natus distinctio quis deserunt quaerat.
+    </p>
+  </section>
+
+  <div class="pimg1">
+    <div class="dark-overlay-1">
+      <div class="ptext">
+          <h1 class="display-4">Lorem ipsum dolor sit amet. </h1> 
+      </div>
+    </div>
+  </div>
+
+  <section class="section section-dark">
+      <h2>Section Two</h2>
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab ut delectus ad error, eos a reiciendis soluta ex dolorum voluptatem assumenda aliquid in recusandae aut illum nihil id consequatur ullam deleniti cumque minima itaque fugit? Sit distinctio unde, a repellat hic perspiciatis veniam, nulla autem doloremque laboriosam debitis ex dicta soluta, quo quibusdam eius ad ut deleniti sed laudantium? Asperiores beatae a impedit culpa sapiente deserunt officia voluptate at unde. Nam, impedit, quo nobis repellat voluptates tenetur amet temporibus rem, nemo vitae optio id adipisci quis est reprehenderit! Blanditiis eaque itaque accusantium eos impedit nihil, natus distinctio quis deserunt quaerat.
+      </p>
+    </section>
+
+    <div class="pimg2">
+      <div class="dark-overlay-2">
+        <div class="ptext">
+            <h1 class="display-4">Lorem ipsum dolor sit amet. </h1> 
+        </div>
+      </div>
+    </div>
+
+    <section class="section section-primary">
+      <h2>Section Three</h2>
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab ut delectus ad error, eos a reiciendis soluta ex dolorum voluptatem assumenda aliquid in recusandae aut illum nihil id consequatur ullam deleniti cumque minima itaque fugit? Sit distinctio unde, a repellat hic perspiciatis veniam, nulla autem doloremque laboriosam debitis ex dicta soluta, quo quibusdam eius ad ut deleniti sed laudantium? Asperiores beatae a impedit culpa sapiente deserunt officia voluptate at unde. Nam, impedit, quo nobis repellat voluptates tenetur amet temporibus rem, nemo vitae optio id adipisci quis est reprehenderit! Blanditiis eaque itaque accusantium eos impedit nihil, natus distinctio quis deserunt quaerat.
+      </p>
+    </section>
+
+    <div class="pimg3">
+      <div class="dark-overlay-3">
+        <div class="ptext">
+            <h1 class="h3">MEAN eCommerce</h1>
+            <h1 class="h5">Copyright &copy; 2017, CT</h1>
+        </div>
+      </div>
+    </div>
+
+</div>  
+  

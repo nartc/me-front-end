@@ -1,0 +1,142 @@
+$dark-overlay: rgba(0, 0, 0, 0.7);
+$nav-bg: #343a40;
+$primary-color: #67b021;
+
+@media (min-width: 1200px) {
+    .wrapper{
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .wrapper{
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .wrapper{
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 576px) {
+    .wrapper{
+        max-width: 100%;
+    }
+}
+
+.wrapper{
+    position: absolute;
+    top: 58px;
+    left: 0;
+    width:100%;
+    height: 100%;
+    margin-bottom: 120px;
+}
+
+#home-section{
+    background: url("https://static.pexels.com/photos/75627/pexels-photo-75627.jpeg") no-repeat;
+    min-height: 700px;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.dark-overlay{
+    background-color: $dark-overlay;
+    position:absolute;
+    left:0;
+    width:100%;
+    min-height: 700px;
+}
+
+div.home-inner h1 {
+    text-align: center;
+    margin-top: 270px;
+}
+
+h1 {
+    color: $primary-color;
+    opacity: 0.8;
+}
+
+#btnDiv {
+    text-align: center;
+}
+
+.pimg3{
+    background-image: url("https://static.pexels.com/photos/3008/drinks-supermarket-cans-beverage.jpg");
+    min-height: 100%;
+}
+.dark-overlay-3 {
+    background-color: $dark-overlay;
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+}
+
+.pimg2{
+    background-image: url("https://static.pexels.com/photos/157039/pexels-photo-157039.jpeg");
+    min-height: 400px;
+}
+.dark-overlay-2 {
+    background-color: $dark-overlay;
+    position: absolute;
+    width: 100%;
+    min-height: 400px;
+}
+
+.pimg1{
+    background-image: url("https://static.pexels.com/photos/357577/pexels-photo-357577.jpeg");
+    min-height: 400px;
+}
+.dark-overlay-1 {
+    background-color: $dark-overlay;
+    position: absolute;
+    width: 100%;
+    min-height: 400px;
+}
+
+.pimg1, .pimg2, .pimg3 {
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    /*To remove Parallax, scroll instead of fixed */
+    background-attachment: fixed;
+}
+
+.section{
+    text-align: center;
+    padding: 50px 80px;
+
+}
+
+.section-primary{
+    background-color: $primary-color;
+    color: #fff;
+    border-top: 1px solid $nav-bg;
+    border-bottom: 1px solid $nav-bg;
+    opacity: 0.8;
+}
+
+.section-dark{
+    background-color: $nav-bg;
+    color: $primary-color;
+    border-top: 1px solid $primary-color;
+    border-bottom: 1px solid $primary-color;
+    opacity: 0.8;
+}
+
+.ptext{
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    text-align: center;
+}
+
+.pimg3 .ptext{
+    top: 50%;
+}
+
