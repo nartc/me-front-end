@@ -67,7 +67,6 @@ export class ProductAddComponent implements OnInit {
       
       reader.onloadend = () => {
         console.log('RESULT', reader.result);
-        value.productDetails.image[0] = reader.result;
         this.product.productDetails.image = reader.result;
         
         this.postProduct(this.product);
