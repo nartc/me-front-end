@@ -8,7 +8,7 @@ export class HttpService {
   public static host = "localhost";
   public static port = 8080;
   public static domain = "me-commerce.herokuapp.com"
-  //public static url = "http://" + HttpService.host + ":" + HttpService.port;  
+//   public static url = "http://" + HttpService.host + ":" + HttpService.port;  
   public static url = "https://"+ HttpService.domain;
 
   constructor(

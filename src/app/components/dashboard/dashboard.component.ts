@@ -37,8 +37,8 @@ export class DashboardComponent implements OnInit {
 
   public role: String = '';
 
-  public totalRevenue: number;
-  public totalExpenses: number;
+  public totalRevenue: number = 0;
+  public totalExpenses: number = 0;
   public activityId: string;
   public revenueGreaterThanExpenses: boolean;
   public hasExpenses: boolean = true;
