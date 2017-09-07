@@ -194,6 +194,8 @@ export class DashboardComponent implements OnInit {
         } else {
           console.log('Activity ID is undefined');
         }
+
+        this.payVendor = false;
       }
     });
   }
