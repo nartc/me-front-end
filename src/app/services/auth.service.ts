@@ -33,6 +33,8 @@ export class AuthService {
   storeAdminData(token: any, admin: Admin): void {
     this.localStorageService.saveValueWithKey('id_token', token);
     this.localStorageService.saveValueWithKey('admin', JSON.stringify(admin));
+    
+    //sessionStorage.setItem('id_token', token);
 
     this.authToken = token;
     this.admin = admin;
@@ -40,6 +42,7 @@ export class AuthService {
 
   loadToken(): void {
     this.authToken = this.localStorageService.fetchValueFromKey('id_token');
+    //this.authToken = sessionStorage.getItem('id_token');
   }
 
   loadCurrentAdmin(): Admin {
@@ -48,6 +51,7 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return tokenNotExpired('id_token');
+    //return tokenNotExpired(null, sessionStorage.getItem("id_token"));
   }
 
   logout(): void {
@@ -55,6 +59,7 @@ export class AuthService {
     this.admin = null;
     this.currentAdmin = null;
     this.localStorageService.clearAll();
+    //sessionStorage.clear();
   }
 
   changePassword(admin: Admin, candidatePassword: string, newPassword: string): Observable<any> {

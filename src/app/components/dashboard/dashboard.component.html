@@ -52,14 +52,14 @@
   <div class="ui-g">
     <!--Main Dashboard-->
     <div class="ui-g-10 ui-sm-12 ui-g-nopad">
-        <div class="ui-g-6">
+        <div class="ui-g-6 animated fadeInDown">
           <h2><i class="fa fa-dashcube"></i> Dashboard</h2>
         </div>
         <div class="ui-g-6">
           <h5 class="pull-right text-muted">Today: {{todayDate | date:'short'}}</h5>
         </div>
         <!--Stats Panel-->
-        <div class="ui-g-12 ui-g-nopad">
+        <div class="ui-g-12 ui-g-nopad animated fadeInLeft">
           <p-panel header="Statistics">
             <div class="ui-g">
               <div class="ui-g-6">
@@ -103,7 +103,7 @@
         </div>
     </div>
     <!--Sidebar-->
-    <div class="ui-g-2 ui-sm-12">
+    <div class="ui-g-2 ui-sm-12 animated fadeInRight">
       <app-sidebar></app-sidebar>
       <br><br>
       <button 
