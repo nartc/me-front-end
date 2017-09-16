@@ -28,7 +28,7 @@
       <tr *ngFor="let line of cart">
         <td>
           <div class="ui-g">
-            <div class="ui-g-2"><img src="{{line.product.productDetails.image}}" width="50" height="50"></div>
+            <div class="ui-g-2"><img src="{{line.product.productDetails.image}}" class="img-fluid"></div>
             <div class="ui-g-10">
               <p>
                 {{line.product.productDetails.name}}<br>
@@ -44,7 +44,7 @@
           <span *ngIf="role == 'Client'">{{line.product.productSellPrice | currency:'USD':true}}</span>
           <span *ngIf="role == 'Admin'">{{line.product.productBuyPrice | currency:'USD':true}}</span>
         </td>
-        <td>x
+        <td>
           <input 
             id="quantityInput"
             type="number" 
@@ -88,11 +88,11 @@
 </ng-template>
 <hr>
 <div class="ui-g">
-    <div class="ui-g-6 ui-md-6 ui-sm-12 ui-xs-12">
+    <div class="ui-g-6 ui-md-3 ui-sm-12 ui-xs-12">
       <span *ngIf="role == 'Admin'"></span>
     </div>
-    <div class="ui-g-3 ui-md-3"></div>
-    <div class="ui-g-3 ui-md-3 ui-sm-12 ui-xs-12">
+    <div class="ui-g-3 ui-md-3 ui-sm-12 ui-xs-12"></div>
+    <div class="ui-g-3 ui-md-6 ui-sm-12 ui-xs-12">
       <div class="ui-g-12" id="totalBox">
           <div class="ui-g-6" *ngIf="role == 'Client'"><h5>Subtotal:</h5></div>
           <div class="ui-g-6 ui-rtl" dir="rtl" *ngIf="role == 'Client'">{{subTotal | currency:'USD':true}}</div>

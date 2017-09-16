@@ -37,7 +37,7 @@
           <a class="nav-link" [routerLink]="['/register']">Register</a>
         </li>
         <li class="nav-item" *ngIf="authService.currentAdmin">
-          <a class="nav-link" id="welcomeText" style="cursor: pointer">Welcome, {{authService.currentAdmin?.name}}</a>
+          <a class="nav-link" id="welcomeText" style="cursor: pointer" >Welcome, {{authService.currentAdmin?.name}}</a>
         </li>
         <li class="nav-item" *ngIf="clientService.currentClient">
           <a class="nav-link" id="welcomeText" style="cursor: pointer">Welcome, {{clientService.currentClient?.firstName}}</a>

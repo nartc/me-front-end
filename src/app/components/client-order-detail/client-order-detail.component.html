@@ -1,5 +1,5 @@
 <div class="ui-g">
-    <div class="ui-g-6" *ngIf="role == 'Admin'">
+    <div class="ui-g-6 ui-md-6 ui-sm-12 ui-xs-12" *ngIf="role == 'Admin'">
       <button 
         pButton 
         type="button" 
@@ -8,10 +8,11 @@
         icon="fa-arrow-circle-o-left" 
         iconPos="left" 
         (click)="onClick()"
+        id="backToClientButton"
       >
       </button>
     </div>
-    <div class="ui-g-6" *ngIf="role == 'Client'">
+    <div class="ui-g-6 ui-md-6 ui-sm-12 ui-xs-12" *ngIf="role == 'Client'">
         <button 
           pButton 
           type="button" 
@@ -20,6 +21,7 @@
           icon="fa-arrow-circle-o-left" 
           iconPos="left" 
           (click)="onClick()"
+          id="backToClientButton"
         >
         </button>
       </div>
@@ -105,13 +107,13 @@
                         <h4 class="ui-panel-title" style="display:inline-block;margin-top:10px">{{product.productNumber}}</h4>
                       </p-header>
                       <div class="ui-g">
-                        <div class="ui-g-6"><h4 style="margin-top: 10px">{{product.productDetails.name}}</h4></div>
-                        <div class="ui-g-6 ui-rtl text-muted" dir="rtl" *ngIf="role == 'Admin'">
+                        <div class="ui-g-6 ui-md-6 ui-sm-12 ui-xs-12"><h4 style="margin-top: 10px">{{product.productDetails.name}}</h4></div>
+                        <div class="ui-g-6 ui-md-6 ui-sm-12 ui-xs-12 ui-rtl text-muted" dir="rtl" *ngIf="role == 'Admin'">
                           <h3>Unit Price: {{product.productSellPrice | currency:'USD':true}}</h3>
                           <h3>Vendor Price: {{product.productBuyPrice | currency:'USD':true}}</h3>
                         </div>
-                        <div class="ui-g-12" style="text-align: center;"><img src="{{product.productDetails.image}}" width="400px" height="400px"></div>
-                        <div class="ui-g-12">
+                        <div class="ui-g-12 ui-md-12 ui-sm-12 ui-xs-12" style="text-align: center;"><img src="{{product.productDetails.image}}" class="img-fluid"></div>
+                        <div class="ui-g-12 ui-md-12 ui-sm-12 ui-xs-12">
                           <p>{{product.productDetails.description}}</p>
                         </div>
                       </div>

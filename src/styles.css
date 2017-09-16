@@ -48,7 +48,8 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 #addClientButton.ui-button,
 #addProductButton.ui-button,
 #viewCouponsButton.ui-button,
-#addCouponButton.ui-button{
+#addCouponButton.ui-button,
+#backToClientButton.ui-button{
     display: block;
     width: 90%;
     margin: auto;
@@ -136,6 +137,76 @@ p-inputmask.ng-dirty.ng-invalid > .ui-inputtext {
 .vendorOrdersTable .vendorOrdersPaidToggleButton.ui-state-default{
     background: #F33434;
     border: 1px solid red;
+}
+
+@media (max-width: 1365px) {
+    .clientsTable.ui-datatable-reflow .ui-datatable-data > tr > td,
+    .productsTable.ui-datatable-reflow .ui-datatable-data > tr > td,
+    .clientOrdersTable.ui-datatable-reflow .ui-datatable-data > tr > td,
+    .couponsTable.ui-datatable-reflow .ui-datatable-data > tr > td,
+    .ordersTable.ui-datatable-reflow .ui-datatable-data > tr > td,
+    .orderDetailsTable.ui-datatable-reflow .ui-datatable-data > tr > td,
+    .vendorOrdersTable.ui-datatable-reflow .ui-datatable-data > tr > td,
+    .vendorOrderDetailsTable.ui-datatable-reflow .ui-datatable-data > tr > td {
+        width: 100% !important;
+        text-align: left;
+        border: 0;
+        box-sizing: border-box;
+        float: left;
+        clear: left;
+    }
+
+    .clientsTable.ui-datatable-reflow .ui-datatable-data tr.ui-widget-content,
+    .productsTable.ui-datatable-reflow .ui-datatable-data tr.ui-widget-content,
+    .clientOrdersTable.ui-datatable-reflow .ui-datatable-data tr.ui-widget-content,
+    .couponsTable.ui-datatable-reflow .ui-datatable-data tr.ui-widget-content,
+    .ordersTable.ui-datatable-reflow .ui-datatable-data tr.ui-widget-content,
+    .orderDetailsTable.ui-datatable-reflow .ui-datatable-data tr.ui-widget-content,
+    .vendorOrdersTable.ui-datatable-reflow .ui-datatable-data tr.ui-widget-content,
+    .vendorOrderDetailsTable.ui-datatable-reflow .ui-datatable-data tr.ui-widget-content {
+        border-left: 0;
+        border-right: 0;
+    }
+
+    .clientsTable.ui-datatable-reflow .ui-datatable-data.ui-widget-content,
+    .productsTable.ui-datatable-reflow .ui-datatable-data.ui-widget-content,
+    .clientOrdersTable.ui-datatable-reflow .ui-datatable-data.ui-widget-content,
+    .couponsTable.ui-datatable-reflow .ui-datatable-data.ui-widget-content,
+    .ordersTable.ui-datatable-reflow .ui-datatable-data.ui-widget-content,
+    .orderDetailsTable.ui-datatable-reflow .ui-datatable-data.ui-widget-content,
+    .vendorOrdersTable.ui-datatable-reflow .ui-datatable-data.ui-widget-content,
+    .vendorOrderDetailsTable.ui-datatable-reflow .ui-datatable-data.ui-widget-content {
+        border: 0;
+    }
+
+    .clientsTable.ui-datatable-reflow thead th,
+    .productsTable.ui-datatable-reflow thead th,
+    .clientOrdersTable.ui-datatable-reflow thead th,
+    .couponsTable.ui-datatable-reflow thead th,
+    .ordersTable.ui-datatable-reflow thead th,
+    .orderDetailsTable.ui-datatable-reflow thead th,
+    .vendorOrdersTable.ui-datatable-reflow thead th,
+    .vendorOrderDetailsTable.ui-datatable-reflow thead th {
+        display: none !important;
+    }
+
+    .clientsTable.ui-datatable-reflow .ui-datatable-data td .ui-column-title,
+    .productsTable.ui-datatable-reflow .ui-datatable-data td .ui-column-title,
+    .clientOrdersTable.ui-datatable-reflow .ui-datatable-data td .ui-column-title,
+    .couponsTable.ui-datatable-reflow .ui-datatable-data td .ui-column-title,
+    .ordersTable.ui-datatable-reflow .ui-datatable-data td .ui-column-title,
+    .orderDetailsTable.ui-datatable-reflow .ui-datatable-data td .ui-column-title,
+    .vendorOrdersTable.ui-datatable-reflow .ui-datatable-data td .ui-column-title,
+    .vendorOrderDetailsTable.ui-datatable-reflow .ui-datatable-data td .ui-column-title {
+        padding: .4em;
+        min-width: 30%;
+        display: inline-block;
+        margin: -.4em 1em -.4em -.4em;
+        font-weight: bold;
+    }
+
+
+
 }
 
 

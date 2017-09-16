@@ -25,11 +25,10 @@
       <p-dataTable
         [value]="orders"
         [responsive]="true"
-        selectionMode="single" 
-        [(selection)]="selectedOrder" 
-        (onRowDblclick)="onRowSelect($event)"
+        (onRowSelect)="onRowSelect($event)"
         styleClass="ordersTable"
       >
+        <p-column [style]="{'width':'38px'}" selectionMode="single"></p-column>
         <p-column header="Date" [style]="{'width':'15%'}"> 
           <ng-template let-col let-order="rowData" pTemplate='body'>
             <span>{{order.orderDate | date:'shortDate'}}</span>

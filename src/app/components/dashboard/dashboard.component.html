@@ -62,17 +62,17 @@
         <div class="ui-g-12 ui-g-nopad">
           <p-panel header="Statistics">
             <div class="ui-g">
-              <div class="ui-g-6">
+              <div class="ui-g-6 ui-md-6 ui-sm-12 ui-xs-12">
                 <p-panel header="Clients" *ngIf="clients" [toggleable]="true" styleClass="dashboardPanels">
                   Total clients: {{clients.length}}
                 </p-panel>
               </div>
-              <div class="ui-g-6">
+              <div class="ui-g-6 ui-md-6 ui-sm-12 ui-xs-12">
                 <p-panel header="Products" *ngIf="products" [toggleable]="true" styleClass="dashboardPanels">
                   Total products: {{products.length}}
                 </p-panel>
               </div>
-              <div class="ui-g-6">
+              <div class="ui-g-6 ui-md-6 ui-sm-12 ui-xs-12">
                 <p-panel header="Orders" *ngIf="orders" [toggleable]="true" styleClass="dashboardPanels">
                   Total orders: {{orders.length}} <br>
                   <span>Total Revenue: 
@@ -85,7 +85,7 @@
                   </span>
                 </p-panel>
               </div>
-              <div class="ui-g-6">
+              <div class="ui-g-6 ui-md-6 ui-sm-12 ui-xs-12">
                 <p-panel header="Vendor Orders" *ngIf="vendorOrders"[toggleable]="true" styleClass="dashboardPanels">
                   Total vendor orders: {{vendorOrders.length}} <br>
                   <span>Total Expenses: 

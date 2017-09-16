@@ -27,6 +27,7 @@ export class ClientOrdersComponent implements OnInit {
 
   public role: string;
 
+
   constructor(
     public router: Router,
     public confirmationService: ConfirmationService,
@@ -39,6 +40,7 @@ export class ClientOrdersComponent implements OnInit {
   }
 
   ngOnInit() {
+
     //Get all orders
     this.orderService.getOrders().subscribe(
       (data: any): void => {
